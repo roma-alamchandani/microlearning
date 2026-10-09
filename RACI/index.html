@@ -1,4716 +1,920 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>RACI — Who Does What?</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17263d">
+<title>RACI — Who Does What? | Roma Learning Studio</title>
 <style>
-
 :root{
-  --ink:#173238;
-  --muted:#61747a;
-  --page:#f3f6f5;
-  --line:#d8dfdc;
-
-  --teal:#0b7b73;
-  --deep:#075c56;
-
-  /* RACI colours */
-  --r:#f2a12f;
-  --r-side:#d98214;
-  --r-top:#ffc363;
-
-  --a:#df675b;
-  --a-side:#b94840;
-  --a-top:#ef8d84;
-
-  /* deliberately darker than scene background */
-  --c:#237f7a;
-  --c-side:#145d59;
-  --c-top:#49aaa4;
-
-  --i:#788dbd;
-  --i-side:#526a9f;
-  --i-top:#99aad0;
-
-  --scene:#72b7b2;
+ --navy:#17263d;--teal:#147d83;--gold:#d9a65b;
+ --bg:#f5f7fa;--muted:#64748b;--line:#e1e7ee;
+ --r:#d68b22;--a:#cc6258;--c:#147d83;--i:#657eb2;
 }
-
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  margin:0;
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-  background:var(--page);
-  color:var(--ink);
+ margin:0;background:var(--bg);color:var(--navy);
+ font-family:Inter,"Segoe UI",Arial,sans-serif;
 }
-
-button,
-input{
-  font:inherit;
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,a:focus-visible,input:focus-visible{
+ outline:3px solid var(--gold);outline-offset:3px;
 }
-
-
-/* =========================================================
-   MAIN SHELL
-   ========================================================= */
-
 .shell{
-  width:min(
-    1180px,
-    calc(100% - 28px)
-  );
-
-  margin:24px auto;
-
-  background:#fff;
-
-  border-radius:26px;
-
-  overflow:hidden;
-
-  box-shadow:
-    0 20px 60px
-    rgba(20,54,62,.10);
-
-  position:relative;
+ max-width:1180px;margin:24px auto;background:white;
+ border-radius:24px;overflow:hidden;
+ box-shadow:0 18px 55px #17263d14;
 }
-
-
 .topline{
-  height:8px;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--teal),
-      #75bb90
-    );
+ height:7px;
+ background:linear-gradient(90deg,var(--navy),var(--teal));
 }
-
-
 .header{
-  display:flex;
-
-  align-items:center;
-
-  gap:16px;
-
-  padding:
-    18px 28px;
-
-  border-bottom:
-    1px solid var(--line);
+ display:flex;align-items:center;gap:18px;
+ padding:19px 28px;border-bottom:1px solid var(--line);
 }
-
-
 .brand{
-  color:var(--teal);
-
-  font-size:13px;
-
-  font-weight:900;
-
-  letter-spacing:.11em;
-
-  white-space:nowrap;
+ font-size:12px;font-weight:900;letter-spacing:1px;
+ white-space:nowrap;
 }
-
-
 .progress{
-  flex:1;
-
-  height:7px;
-
-  border-radius:999px;
-
-  background:#e8efed;
-
-  overflow:hidden;
+ flex:1;height:7px;background:#e8eff2;
+ border-radius:20px;overflow:hidden;
 }
-
-
 .progress i{
-  display:block;
-
-  height:100%;
-
-  width:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--teal),
-      #75bb90
-    );
-
-  transition:
-    width .35s ease;
+ display:block;height:100%;width:0;
+ background:var(--teal);transition:width .3s;
 }
-
-
-.count{
-  min-width:90px;
-
-  text-align:right;
-
-  color:var(--muted);
-
-  font-size:12px;
-
-  font-weight:800;
+.counter{font-size:12px;color:var(--muted)}
+main{padding:42px 46px 55px;min-height:480px}
+.screen{display:none}
+.screen.active{display:block;animation:fade .3s ease}
+@keyframes fade{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:none}
 }
-
-
-main{
-  padding:
-    38px
-    46px
-    104px;
-}
-
-
-.screen{
-  display:none;
-}
-
-
-.screen.active{
-  display:block;
-
-  animation:
-    fadeIn .3s ease;
-}
-
-
-@keyframes fadeIn{
-
-  from{
-    opacity:0;
-    transform:translateY(7px);
-  }
-
-  to{
-    opacity:1;
-    transform:none;
-  }
-
-}
-
-
-/* =========================================================
-   TYPOGRAPHY
-   ========================================================= */
-
 .eyebrow{
-  color:var(--teal);
-
-  font-size:12px;
-
-  font-weight:900;
-
-  text-transform:uppercase;
-
-  letter-spacing:.11em;
+ color:var(--teal);font-size:12px;font-weight:850;
+ text-transform:uppercase;letter-spacing:1.4px;
 }
-
-
 h1{
-  margin:
-    8px 0 15px;
-
-  font-size:
-    clamp(
-      44px,
-      6vw,
-      72px
-    );
-
-  line-height:1;
-
-  letter-spacing:-.04em;
+ font-size:clamp(39px,5vw,63px);
+ letter-spacing:-1.8px;line-height:1.06;
+ margin:13px 0 20px;
 }
-
-
 h2{
-  margin:
-    7px 0 13px;
-
-  font-size:
-    clamp(
-      30px,
-      4vw,
-      43px
-    );
-
-  line-height:1.08;
+ font-size:clamp(29px,4vw,42px);
+ letter-spacing:-1px;margin:12px 0 17px;
 }
-
-
-p{
-  color:#42585f;
-
-  font-size:18px;
-
-  line-height:1.58;
-}
-
-
-.lead{
-  max-width:760px;
-
-  font-size:21px;
-}
-
-
-/* =========================================================
-   INTRO
-   ========================================================= */
-
-.intro-grid{
-  display:grid;
-
-  grid-template-columns:
-    minmax(0,1.05fr)
-    minmax(390px,.95fr);
-
-  gap:42px;
-
-  align-items:center;
-}
-
-
-.pills{
-  display:flex;
-
-  gap:8px;
-
-  flex-wrap:wrap;
-
-  margin:
-    18px 0 22px;
-}
-
-
+h3{margin:0}
+p{font-size:17px;line-height:1.7;color:#4a5c70}
+.lead{font-size:20px}
 .pill{
-  padding:
-    8px 12px;
-
-  border-radius:999px;
-
-  background:#eef6f3;
-
-  color:var(--deep);
-
-  font-size:13px;
-
-  font-weight:850;
+ display:inline-block;padding:9px 13px;
+ background:#eaf5f4;color:var(--teal);
+ border-radius:25px;font-size:13px;font-weight:800;
+ margin:6px 6px 0 0;
 }
-
-
+.intro{
+ display:grid;grid-template-columns:1.1fr .9fr;
+ gap:35px;align-items:center;
+}
+.visual{
+ min-height:400px;border-radius:25px;
+ background:linear-gradient(145deg,#eaf5f4,#f4f0e9);
+ display:flex;justify-content:center;
+ align-items:center;padding:30px;
+}
+.stack{
+ display:flex;flex-direction:column-reverse;
+ gap:12px;width:min(260px,100%);
+}
+.block{
+ display:flex;align-items:center;gap:15px;
+ padding:18px 20px;border-radius:13px;
+ color:white;font-weight:900;
+ box-shadow:6px 8px 0 #17263d18;
+}
+.block strong{font-size:35px}
+.block span{font-size:15px}
 .identity{
-  margin-top:22px;
-
-  padding:18px;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:17px;
-
-  background:#fafcfb;
+ margin-top:25px;border:1px solid var(--line);
+ background:#fafcfd;padding:20px;border-radius:16px;
 }
-
-
 .identity label{
-  display:block;
-
-  margin-bottom:8px;
-
-  color:var(--deep);
-
-  font-size:13px;
-
-  font-weight:900;
-
-  text-transform:uppercase;
+ display:block;font-weight:800;margin-bottom:10px;
 }
-
-
 .identity input{
-  width:100%;
-
-  padding:
-    13px 14px;
-
-  border:
-    1px solid #cad9d4;
-
-  border-radius:12px;
-
-  outline:none;
+ width:100%;padding:14px;border:1px solid #cad5df;
+ border-radius:10px;background:white;
 }
-
-
-.identity input:focus{
-  border-color:var(--teal);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(11,123,115,.12);
+.identity small{
+ display:block;margin-top:10px;color:var(--muted);
+ line-height:1.5;
 }
-
-
-/* =========================================================
-   INTRO STACK
-   ========================================================= */
-
-.intro-visual{
-  min-height:455px;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:30px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #edf6f2,
-      #fbfaf5
-    );
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:
-    50px 30px;
+.build-layout{
+ display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+ gap:25px;align-items:start;margin-top:25px;
 }
-
-
-.intro-stack{
-  display:flex;
-
-  flex-direction:column-reverse;
-
-  gap:14px;
-
-  position:relative;
-
-  padding:
-    20px
-    34px
-    20px
-    20px;
-}
-
-
-/* =========================================================
-   3D BLOCK SYSTEM
-   ========================================================= */
-
-.cube{
-  --front:#999;
-  --side:#777;
-  --top:#bbb;
-
-  position:relative;
-
-  width:220px;
-
-  height:86px;
-
-  border-radius:14px;
-
-  background:var(--front);
-
-  display:flex;
-
-  align-items:center;
-
-  padding:
-    0 22px;
-
-  gap:15px;
-
-  color:#fff;
-
-  box-shadow:
-    0 12px 20px
-    rgba(20,40,40,.13);
-
-  isolation:isolate;
-}
-
-
-/* right 3D side */
-
-.cube::after{
-  content:"";
-
-  position:absolute;
-
-  right:-17px;
-
-  top:10px;
-
-  width:18px;
-
-  height:
-    calc(100% - 4px);
-
-  background:var(--side);
-
-  clip-path:
-    polygon(
-      0 0,
-      100% 10px,
-      100% 100%,
-      0 calc(100% - 10px)
-    );
-
-  border-radius:
-    0 7px 7px 0;
-
-  z-index:-1;
-}
-
-
-/* top 3D face */
-
-.cube::before{
-  content:"";
-
-  position:absolute;
-
-  left:10px;
-
-  right:-8px;
-
-  top:-11px;
-
-  height:13px;
-
-  background:var(--top);
-
-  clip-path:
-    polygon(
-      0 100%,
-      10px 0,
-      calc(100% - 16px) 0,
-      100% 100%
-    );
-
-  border-radius:
-    6px 6px 0 0;
-
-  z-index:-1;
-}
-
-
-.cube-letter{
-  flex:
-    0 0 auto;
-
-  min-width:42px;
-
-  font-size:44px;
-
-  line-height:1;
-
-  font-weight:950;
-}
-
-
-.cube-label{
-  flex:1;
-
-  min-width:0;
-
-  font-size:15px;
-
-  line-height:1.1;
-
-  font-weight:900;
-
-  letter-spacing:.015em;
-
-  text-transform:uppercase;
-
-  white-space:nowrap;
-}
-
-
-.cube-r{
-  --front:var(--r);
-  --side:var(--r-side);
-  --top:var(--r-top);
-}
-
-
-.cube-a{
-  --front:var(--a);
-  --side:var(--a-side);
-  --top:var(--a-top);
-}
-
-
-.cube-c{
-  --front:var(--c);
-  --side:var(--c-side);
-  --top:var(--c-top);
-}
-
-
-.cube-i{
-  --front:var(--i);
-  --side:var(--i-side);
-  --top:var(--i-top);
-}
-
-
-/* =========================================================
-   BUILD SCREEN
-   ========================================================= */
-
-.build-grid{
-  display:grid;
-
-  grid-template-columns:
-    minmax(0,1.4fr)
-    minmax(310px,.6fr);
-
-  gap:30px;
-
-  align-items:center;
-}
-
-
-/* =========================================================
-   SCENE
-   ========================================================= */
-
 .scene{
-  position:relative;
-
-  height:560px;
-
-  border:
-    1px solid #67aaa6;
-
-  border-radius:30px;
-
-  overflow:hidden;
-
-  background:
-    linear-gradient(
-      180deg,
-      #76bbb6,
-      var(--scene)
-    );
+ height:480px;position:relative;
+ background:linear-gradient(180deg,#d9eeec,#b6dad5);
+ border:1px solid #a3cbc7;border-radius:24px;
+ overflow:hidden;
 }
-
-
-.scene-floor{
-  position:absolute;
-
-  left:6%;
-
-  right:5%;
-
-  bottom:58px;
-
-  height:6px;
-
-  background:#203b3d;
-
-  border-radius:999px;
+.floor{
+ position:absolute;bottom:45px;left:5%;right:5%;
+ height:5px;background:#27484a;border-radius:10px;
 }
-
-
-/* subtle floor shadow */
-
-.scene-floor::after{
-  content:"";
-
-  position:absolute;
-
-  left:55%;
-
-  right:2%;
-
-  top:8px;
-
-  height:15px;
-
-  background:
-    rgba(20,50,50,.10);
-
-  filter:
-    blur(8px);
-
-  border-radius:50%;
-}
-
-
-/* =========================================================
-   STACK IN SCENE
-   ========================================================= */
-
 .scene-stack{
-  position:absolute;
-
-  right:7%;
-
-  bottom:65px;
-
-  width:245px;
-
-  height:395px;
-
-  z-index:4;
+ position:absolute;right:9%;bottom:51px;
+ width:190px;height:340px;
 }
-
-
-.scene-cube{
-  width:210px;
-
-  height:84px;
-
-  padding:
-    0 20px;
-
-  gap:14px;
-
-  position:absolute;
-
-  left:5px;
-
-  opacity:0;
-
-  transform:
-    translateY(-24px)
-    scale(.96);
-
-  transition:
-    opacity .38s ease,
-    transform .48s cubic-bezier(.2,.8,.2,1);
+.scene-block{
+ position:absolute;left:0;width:180px;height:72px;
+ display:flex;align-items:center;gap:13px;
+ padding:13px 15px;border-radius:11px;
+ color:white;font-weight:900;
+ opacity:0;transform:translateY(-30px) scale(.94);
+ transition:opacity .4s,transform .5s;
+ box-shadow:5px 7px 0 #17263d20;
 }
-
-
-.scene-cube.show{
-  opacity:1;
-
-  transform:none;
+.scene-block.show{
+ opacity:1;transform:translateY(0) scale(1);
 }
-
-
-.scene-cube .cube-letter{
-  min-width:44px;
-
-  font-size:46px;
-}
-
-
-.scene-cube .cube-label{
-  font-size:13px;
-
-  letter-spacing:.025em;
-}
-
-
-#blockR{
-  bottom:0;
-}
-
-
-#blockA{
-  bottom:94px;
-}
-
-
-#blockC{
-  bottom:188px;
-}
-
-
-#blockI{
-  bottom:282px;
-}
-
-
-/* =========================================================
-   PROFESSIONAL WORKER ILLUSTRATION
-   ========================================================= */
-
+.scene-block strong{font-size:32px}
+.scene-block span{font-size:12px}
+#blockR{bottom:0;background:var(--r)}
+#blockA{bottom:82px;background:var(--a)}
+#blockC{bottom:164px;background:var(--c)}
+#blockI{bottom:246px;background:var(--i)}
 .worker{
-  position:absolute;
-
-  left:7%;
-
-  bottom:65px;
-
-  width:112px;
-
-  height:235px;
-
-  z-index:8;
-
-  transition:
-    left 1.15s cubic-bezier(.4,0,.2,1),
-    bottom 1.05s cubic-bezier(.4,0,.2,1),
-    transform .35s ease;
+ position:absolute;left:8%;bottom:50px;
+ width:100px;height:190px;
+ transition:left .9s ease,bottom .9s ease;
+ z-index:5;
 }
-
-
-.worker svg{
-  display:block;
-
-  width:100%;
-
-  height:100%;
-
-  overflow:visible;
+.worker svg{width:100%;height:100%;overflow:visible}
+.worker.walking{animation:bob .35s infinite alternate}
+@keyframes bob{
+ from{transform:translateY(0)}
+ to{transform:translateY(-5px)}
 }
-
-
-/* subtle professional walking movement */
-
-.worker.walking{
-  animation:
-    workerBob .52s
-    ease-in-out
-    infinite alternate;
+.carry{
+ position:absolute;right:-50px;top:48px;
+ width:65px;height:55px;border-radius:9px;
+ color:white;font-size:30px;font-weight:900;
+ display:none;place-items:center;
+ box-shadow:4px 5px 0 #17263d20;
 }
-
-
-@keyframes workerBob{
-
-  from{
-    transform:translateY(0);
-  }
-
-  to{
-    transform:translateY(-3px);
-  }
-
-}
-
-
-.worker.walking .leg-left{
-  animation:
-    legLeft .52s
-    ease-in-out
-    infinite alternate;
-
-  transform-origin:
-    49px 159px;
-}
-
-
-.worker.walking .leg-right{
-  animation:
-    legRight .52s
-    ease-in-out
-    infinite alternate;
-
-  transform-origin:
-    67px 159px;
-}
-
-
-@keyframes legLeft{
-
-  from{
-    transform:rotate(4deg);
-  }
-
-  to{
-    transform:rotate(-7deg);
-  }
-
-}
-
-
-@keyframes legRight{
-
-  from{
-    transform:rotate(-5deg);
-  }
-
-  to{
-    transform:rotate(7deg);
-  }
-
-}
-
-
-.worker.climbing{
-  transform:
-    scale(.94);
-}
-
-
-/* =========================================================
-   CARRIED CUBE
-   ========================================================= */
-
-.carry-cube{
-  position:absolute;
-
-  width:88px;
-
-  height:62px;
-
-  right:-60px;
-
-  top:73px;
-
-  display:none;
-
-  align-items:center;
-
-  justify-content:center;
-
-  border-radius:10px;
-
-  color:#fff;
-
-  font-size:32px;
-
-  font-weight:950;
-
-  box-shadow:
-    5px 7px 0
-    rgba(20,45,45,.15);
-
-  z-index:12;
-}
-
-
-.carry-cube.show{
-  display:flex;
-}
-
-
-.carry-cube::before{
-  content:"";
-
-  position:absolute;
-
-  left:7px;
-
-  right:-6px;
-
-  top:-8px;
-
-  height:9px;
-
-  background:
-    rgba(255,255,255,.24);
-
-  clip-path:
-    polygon(
-      0 100%,
-      8px 0,
-      calc(100% - 9px) 0,
-      100% 100%
-    );
-}
-
-
-/* =========================================================
-   LADDER
-   ========================================================= */
-
+.carry.show{display:grid}
 .ladder{
-  position:absolute;
-
-  width:125px;
-
-  height:300px;
-
-  right:300px;
-
-  bottom:62px;
-
-  opacity:0;
-
-  transform:
-    translateX(-270px);
-
-  transition:
-    opacity .45s ease,
-    transform 1s cubic-bezier(.4,0,.2,1);
-
-  z-index:3;
+ position:absolute;right:37%;bottom:49px;
+ width:85px;height:250px;opacity:0;
+ transform:translateX(-80px);
+ transition:opacity .5s,transform .7s;
 }
-
-
-.ladder.show{
-  opacity:1;
-
-  transform:none;
+.ladder.show{opacity:1;transform:none}
+.ladder:before,.ladder:after{
+ content:"";position:absolute;top:0;
+ width:8px;height:100%;background:#28474a;
+ border-radius:5px;
 }
-
-
-.ladder-side{
-  position:absolute;
-
-  top:0;
-
-  width:10px;
-
-  height:100%;
-
-  background:#203e40;
-
-  border-radius:7px;
+.ladder:before{left:10px;transform:rotate(5deg)}
+.ladder:after{right:10px;transform:rotate(-5deg)}
+.rung{
+ position:absolute;left:17px;right:17px;
+ height:7px;background:#28474a;border-radius:5px;
 }
-
-
-.ladder-side.left{
-  left:10px;
-
-  transform:rotate(7deg);
+.rung:nth-child(1){bottom:45px}
+.rung:nth-child(2){bottom:100px}
+.rung:nth-child(3){bottom:155px}
+.rung:nth-child(4){bottom:210px}
+.explain{
+ border:1px solid var(--line);
+ background:#f8fbfc;border-radius:20px;padding:23px;
 }
-
-
-.ladder-side.right{
-  right:10px;
-
-  transform:rotate(-7deg);
-}
-
-
-.ladder-rung{
-  position:absolute;
-
-  left:23px;
-
-  width:79px;
-
-  height:8px;
-
-  background:#203e40;
-
-  border-radius:7px;
-}
-
-
-.ladder-rung.r1{
-  bottom:48px;
-}
-
-.ladder-rung.r2{
-  bottom:105px;
-}
-
-.ladder-rung.r3{
-  bottom:162px;
-}
-
-.ladder-rung.r4{
-  bottom:219px;
-}
-
-
-/* =========================================================
-   EXPLANATION PANEL
-   ========================================================= */
-
-.explain-card{
-  border:
-    1px solid var(--line);
-
-  border-radius:24px;
-
-  background:#fbfcfb;
-
-  padding:25px;
-}
-
-
-.role-head{
-  display:flex;
-
-  align-items:center;
-
-  gap:13px;
-}
-
-
+.role-head{display:flex;align-items:center;gap:12px}
 .role-letter{
-  width:55px;
-
-  height:55px;
-
-  border-radius:14px;
-
-  background:#d6dddd;
-
-  display:grid;
-
-  place-items:center;
-
-  color:#fff;
-
-  font-size:29px;
-
-  font-weight:950;
+ width:55px;height:55px;border-radius:13px;
+ display:grid;place-items:center;
+ background:var(--teal);color:white;
+ font-size:27px;font-weight:900;
 }
-
-
-.role-head h3{
-  margin:0;
-
-  font-size:27px;
-}
-
-
+.role-head h3{font-size:25px}
 .role-question{
-  margin-top:17px;
-
-  color:var(--teal);
-
-  font-size:16px;
-
-  font-weight:900;
+ color:var(--teal);font-weight:850;
+ margin-top:20px;
 }
-
-
-.role-copy{
-  font-size:16px;
+.tip{
+ background:#eaf5f4;border-radius:12px;
+ padding:15px;margin-top:20px;
+ color:#3c5d60;font-size:14px;line-height:1.6;
 }
-
-
-.key-point{
-  margin-top:16px;
-
-  padding:
-    14px 16px;
-
-  border-radius:14px;
-
-  background:#edf6f3;
-
-  color:#42585f;
-
-  font-size:14px;
-
-  line-height:1.5;
+.action{
+ border:0;border-radius:11px;
+ padding:13px 19px;background:var(--navy);
+ color:white;font-weight:800;
 }
-
-
-.build-btn{
-  width:100%;
-
-  margin-top:19px;
-
-  padding:14px;
-
-  border:0;
-
-  border-radius:13px;
-
-  background:var(--teal);
-
-  color:#fff;
-
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-
-.build-btn:disabled{
-  opacity:.45;
-
-  cursor:not-allowed;
-}
-
-
-/* =========================================================
-   SUMMARY
-   ========================================================= */
-
+.build-btn{width:100%;margin-top:20px}
 .summary-grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  gap:14px;
-
-  margin-top:27px;
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:15px;margin-top:25px;
 }
-
-
 .summary-card{
-  border:
-    1px solid var(--line);
-
-  border-radius:19px;
-
-  padding:20px;
-
-  background:#fff;
+ border:1px solid var(--line);border-radius:17px;
+ padding:20px;background:white;
 }
-
-
 .summary-letter{
-  width:50px;
-
-  height:50px;
-
-  border-radius:13px;
-
-  display:grid;
-
-  place-items:center;
-
-  margin-bottom:13px;
-
-  color:#fff;
-
-  font-size:25px;
-
-  font-weight:950;
+ width:50px;height:50px;border-radius:12px;
+ display:grid;place-items:center;
+ color:white;font-size:27px;font-weight:900;
+ margin-bottom:14px;
 }
-
-
-.summary-card h3{
-  margin:
-    0 0 7px;
+.summary-card h3{margin-bottom:9px}
+.summary-card p{font-size:14px;margin:0}
+.quiz-wrap{max-width:880px;margin:auto}
+.quiz-top{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:15px;
 }
-
-
-.summary-card p{
-  margin:0;
-
-  font-size:14px;
-}
-
-
-/* =========================================================
-   QUIZ
-   ========================================================= */
-
-.quiz-wrap{
-  max-width:900px;
-
-  margin:
-    0 auto;
-}
-
-
-.quiz-head{
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  gap:18px;
-}
-
-
 .score-chip{
-  padding:
-    9px 13px;
-
-  border-radius:999px;
-
-  background:#edf6f3;
-
-  color:var(--deep);
-
-  font-size:13px;
-
-  font-weight:900;
+ background:#eaf5f4;color:var(--teal);
+ padding:9px 13px;border-radius:25px;
+ font-size:13px;font-weight:850;
 }
-
-
 .scenario{
-  margin-top:20px;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:21px;
-
-  padding:22px;
-
-  background:#fafcfb;
+ background:#f8fbfc;border:1px solid var(--line);
+ border-radius:20px;padding:24px;margin:22px 0;
 }
-
-
-.scenario p{
-  margin:0;
-
-  color:var(--ink);
-
-  font-size:20px;
-}
-
-
+.scenario p{color:var(--navy);font-size:19px;margin:0}
 .option{
-  width:100%;
-
-  margin-top:10px;
-
-  padding:
-    14px 16px;
-
-  text-align:left;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:13px;
-
-  background:#fff;
-
-  cursor:pointer;
+ width:100%;text-align:left;padding:15px 17px;
+ margin:9px 0;border:1px solid var(--line);
+ border-radius:12px;background:white;
+ color:var(--navy);line-height:1.5;
 }
-
-
-.option.correct{
-  background:#edf8f1;
-
-  border-color:#66af82;
-}
-
-
-.option.wrong{
-  background:#fff2ef;
-
-  border-color:#da9786;
-}
-
-
-.option:disabled{
-  cursor:default;
-}
-
-
+.option:hover:not(:disabled){border-color:var(--teal)}
+.option.correct{background:#eaf8ef;border-color:#66ad84}
+.option.wrong{background:#fff0ef;border-color:#d38c83}
 .feedback{
-  display:none;
-
-  margin-top:16px;
-
-  padding:14px;
-
-  border-radius:13px;
+ display:none;margin-top:18px;padding:16px;
+ border-radius:12px;line-height:1.6;
 }
-
-
-.feedback.show{
-  display:block;
-}
-
-
-.feedback.ok{
-  background:#edf8f1;
-
-  color:#2a6148;
-}
-
-
-.feedback.bad{
-  background:#fff2ef;
-
-  color:#7d4036;
-}
-
-
-.quiz-next{
-  margin-top:18px;
-
-  text-align:right;
-}
-
-
-.quiz-next button{
-  padding:
-    12px 18px;
-
-  border:0;
-
-  border-radius:12px;
-
-  background:var(--teal);
-
-  color:#fff;
-
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-
-.quiz-next button:disabled{
-  opacity:.4;
-}
-
-
-/* =========================================================
-   RESULT
-   ========================================================= */
-
+.feedback.show{display:block}
+.feedback.ok{background:#eaf8ef;color:#216145}
+.feedback.bad{background:#fff0ef;color:#8a3835}
+.quiz-next{text-align:right;margin-top:20px}
 .result-card{
-  max-width:760px;
-
-  margin:
-    0 auto;
-
-  padding:34px;
-
-  text-align:center;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:28px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #fbfcfb,
-      #f0f6f3
-    );
+ max-width:760px;margin:auto;text-align:center;
+ background:#f8fbfc;border:1px solid var(--line);
+ border-radius:24px;padding:35px 24px;
 }
-
-
 .result-ring{
-  --angle:0deg;
-
-  width:154px;
-
-  height:154px;
-
-  margin:
-    10px auto 18px;
-
-  border-radius:50%;
-
-  display:grid;
-
-  place-items:center;
-
-  position:relative;
-
-  background:
-    conic-gradient(
-      var(--teal)
-      var(--angle),
-      #e3ebe8 0
-    );
+ --angle:0deg;width:155px;height:155px;
+ border-radius:50%;margin:20px auto;
+ background:conic-gradient(var(--teal) var(--angle),#e1e9ed 0);
+ display:grid;place-items:center;position:relative;
 }
-
-
-.result-ring::after{
-  content:"";
-
-  position:absolute;
-
-  inset:14px;
-
-  border-radius:50%;
-
-  background:#fff;
+.result-ring:before{
+ content:"";position:absolute;inset:14px;
+ background:white;border-radius:50%;
 }
-
-
-.result-number{
-  position:relative;
-
-  z-index:2;
-
-  font-size:38px;
-
-  font-weight:950;
-}
-
-
-.result-meta{
-  display:flex;
-
-  justify-content:center;
-
-  flex-wrap:wrap;
-
-  gap:9px;
-
-  margin-top:17px;
-}
-
-
-.meta{
-  padding:
-    9px 12px;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:12px;
-
-  background:#fff;
-
-  color:#53656a;
-
-  font-size:13px;
-
-  font-weight:850;
-}
-
-
-.status{
-  margin-top:20px;
-
-  padding:14px;
-
-  border:
-    1px solid #cfe0da;
-
-  border-radius:13px;
-
-  background:#f5faf8;
-
-  color:#48625c;
-
-  font-size:14px;
-
-  line-height:1.5;
-}
-
-
-/* =========================================================
-   CERTIFICATE
-   ========================================================= */
-
+.result-ring strong{position:relative;font-size:38px}
 .certificate{
-  display:none;
-
-  margin-top:26px;
-
-  padding:34px;
-
-  border:
-    2px solid var(--teal);
-
-  border-radius:23px;
-
-  background:#fff;
+ display:none;margin:25px auto;
+ background:white;border:2px solid var(--teal);
+ border-radius:20px;padding:35px 25px;
 }
-
-
-.certificate.show{
-  display:block;
-}
-
-
-.cert-label{
-  color:var(--teal);
-
-  font-size:12px;
-
-  font-weight:900;
-
-  text-transform:uppercase;
-
-  letter-spacing:.11em;
-}
-
-
+.certificate.show{display:block}
 .cert-name{
-  margin:
-    13px 0;
-
-  font-size:32px;
-
-  font-weight:950;
+ font-size:32px;font-weight:900;color:var(--teal);
+ margin:17px 0;overflow-wrap:anywhere;
 }
-
-
-.cert-module{
-  margin:
-    10px 0 16px;
-
-  color:var(--deep);
-
-  font-size:27px;
-
-  font-weight:900;
+.cert-meta{color:var(--muted);font-size:14px}
+.nav{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:12px;padding:17px 28px;
+ border-top:1px solid var(--line);
 }
-
-
-.cert-copy{
-  color:#526369;
-
-  font-size:16px;
+.nav button{
+ border:0;border-radius:11px;padding:13px 19px;
+ font-weight:800;
 }
-
-
-.cert-controls button,
-.retry{
-  margin-top:18px;
-
-  padding:
-    12px 18px;
-
-  border:0;
-
-  border-radius:12px;
-
-  background:var(--teal);
-
-  color:#fff;
-
-  font-weight:900;
-
-  cursor:pointer;
+.back{background:#eaf0f4;color:var(--navy)}
+.next{background:var(--navy);color:white}
+.footer{
+ text-align:center;border-top:1px solid var(--line);
+ padding:20px;color:var(--muted);font-size:12px;
 }
-
-
-/* =========================================================
-   BOTTOM NAV
-   ========================================================= */
-
-.bottom-nav{
-  position:absolute;
-
-  left:0;
-
-  right:0;
-
-  bottom:0;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  padding:
-    15px 28px;
-
-  border-top:
-    1px solid var(--line);
-
-  background:
-    rgba(255,255,255,.96);
+.footer a{
+ color:var(--teal);font-weight:800;text-decoration:none;
 }
-
-
-.nav-btn{
-  min-height:44px;
-
-  padding:
-    12px 17px;
-
-  border:0;
-
-  border-radius:12px;
-
-  font-weight:900;
-
-  cursor:pointer;
+@media(max-width:900px){
+ .intro,.build-layout{grid-template-columns:1fr}
+ .summary-grid{grid-template-columns:1fr 1fr}
 }
-
-
-.nav-back{
-  background:#edf1f1;
-
-  color:#526166;
+@media(max-width:600px){
+ .shell{margin:0;border-radius:0}
+ main{padding:28px 18px 45px}
+ .header{padding:15px;gap:10px}
+ .brand{font-size:10px}
+ .counter{font-size:10px}
+ .summary-grid{grid-template-columns:1fr}
+ .scene{height:400px}
+ .scene-stack{
+  transform:scale(.7);transform-origin:right bottom;
+  right:3%;
+ }
+ .worker{transform:scale(.8);transform-origin:bottom left}
+ .ladder{right:39%;transform-origin:bottom center}
+ .nav{padding:14px}
 }
-
-
-.nav-next{
-  background:var(--teal);
-
-  color:#fff;
-}
-
-
-.nav-btn:disabled{
-  opacity:.4;
-}
-
-
-.time{
-  color:var(--muted);
-
-  font-size:13px;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media(max-width:950px){
-
-  .intro-grid,
-  .build-grid{
-    grid-template-columns:1fr;
-  }
-
-  .summary-grid{
-    grid-template-columns:
-      1fr 1fr;
-  }
-
-}
-
-
-@media(max-width:650px){
-
-  .shell{
-    width:100%;
-
-    margin:0;
-
-    border-radius:0;
-  }
-
-
-  main{
-    padding:
-      28px
-      18px
-      104px;
-  }
-
-
-  .summary-grid{
-    grid-template-columns:1fr;
-  }
-
-
-  .intro-visual{
-    min-height:400px;
-  }
-
-
-  .intro-stack{
-    transform:
-      scale(.88);
-  }
-
-
-  .scene{
-    height:500px;
-  }
-
-
-  .scene-stack{
-    transform:
-      scale(.75);
-
-    transform-origin:
-      right bottom;
-
-    right:3%;
-  }
-
-
-  .ladder{
-    transform-origin:
-      bottom right;
-  }
-
-
-  .time{
-    display:none;
-  }
-
-}
-
-
-/* =========================================================
-   PRINT
-   ========================================================= */
-
 @media print{
-
-  body *{
-    visibility:hidden!important;
-  }
-
-  #certificate,
-  #certificate *{
-    visibility:visible!important;
-  }
-
-  #certificate{
-    display:block!important;
-
-    position:absolute;
-
-    left:0;
-
-    top:0;
-
-    width:100%;
-  }
-
-  #printBtn{
-    display:none!important;
-  }
-
+ @page{size:A4 landscape;margin:12mm}
+ body *{visibility:hidden!important}
+ #certificate,#certificate *{visibility:visible!important}
+ #certificate{
+  display:block!important;position:absolute;
+  left:0;top:0;width:100%;margin:0;
+ }
+ #printBtn{display:none!important}
 }
-
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{
+  animation:none!important;transition:none!important;
+  scroll-behavior:auto!important;
+ }
+}
 </style>
-
 </head>
-
-
 <body>
-
 <div class="shell">
-
-  <div class="topline"></div>
-
-
-  <div class="header">
-
-    <div class="brand">
-      5-MINUTE LEARNING
-    </div>
-
-
-    <div class="progress">
-      <i id="progress"></i>
-    </div>
-
-
-    <div
-      class="count"
-      id="count"
-    >
-      Start
-    </div>
-
-  </div>
-
-
-  <main>
-
-
-    <!-- ===================================================
-         INTRO
-         =================================================== -->
-
-    <section
-      class="screen active"
-      id="intro"
-    >
-
-      <div class="intro-grid">
-
-
-        <div>
-
-          <div class="eyebrow">
-            Role clarity • Collaboration • Ownership
-          </div>
-
-
-          <h1>
-            RACI
-          </h1>
-
-
-          <p class="lead">
-            When several people are involved in the same
-            project, clarity matters. RACI helps define who
-            does the work, who owns the outcome, whose input
-            is required and who simply needs to stay updated.
-          </p>
-
-
-          <div class="pills">
-
-            <span class="pill">
-              ~5 minutes
-            </span>
-
-            <span class="pill">
-              Interactive build
-            </span>
-
-            <span class="pill">
-              7 scenarios
-            </span>
-
-            <span class="pill">
-              85% to complete
-            </span>
-
-          </div>
-
-
-          <div class="identity">
-
-            <label for="learnerName">
-              Your name
-            </label>
-
-            <input
-              id="learnerName"
-              type="text"
-              placeholder="Enter your full name"
-              autocomplete="name"
-            >
-
-          </div>
-
-        </div>
-
-
-
-        <!-- INTRO 3D RACI -->
-
-        <div class="intro-visual">
-
-          <div class="intro-stack">
-
-
-            <div class="cube cube-r">
-
-              <div class="cube-letter">
-                R
-              </div>
-
-              <div class="cube-label">
-                Responsible
-              </div>
-
-            </div>
-
-
-            <div class="cube cube-a">
-
-              <div class="cube-letter">
-                A
-              </div>
-
-              <div class="cube-label">
-                Accountable
-              </div>
-
-            </div>
-
-
-            <div class="cube cube-c">
-
-              <div class="cube-letter">
-                C
-              </div>
-
-              <div class="cube-label">
-                Consulted
-              </div>
-
-            </div>
-
-
-            <div class="cube cube-i">
-
-              <div class="cube-letter">
-                I
-              </div>
-
-              <div class="cube-label">
-                Informed
-              </div>
-
-            </div>
-
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         BUILD
-         =================================================== -->
-
-    <section
-      class="screen"
-      id="build"
-    >
-
-      <div class="eyebrow">
-        Build the RACI model
-      </div>
-
-
-      <h2>
-        One project. Four distinct roles.
-      </h2>
-
-
-      <p>
-        Watch how each role adds a different type
-        of clarity to the project.
-      </p>
-
-
-      <div class="build-grid">
-
-
-        <!-- ANIMATION SCENE -->
-
-        <div class="scene">
-
-
-          <div class="scene-floor"></div>
-
-
-
-          <!-- LADDER -->
-
-          <div
-            class="ladder"
-            id="ladder"
-          >
-
-            <div class="ladder-side left"></div>
-
-            <div class="ladder-side right"></div>
-
-            <div class="ladder-rung r1"></div>
-
-            <div class="ladder-rung r2"></div>
-
-            <div class="ladder-rung r3"></div>
-
-            <div class="ladder-rung r4"></div>
-
-          </div>
-
-
-
-          <!-- STACK -->
-
-          <div class="scene-stack">
-
-
-            <div
-              class="cube scene-cube cube-r"
-              id="blockR"
-            >
-
-              <div class="cube-letter">
-                R
-              </div>
-
-              <div class="cube-label">
-                Responsible
-              </div>
-
-            </div>
-
-
-
-            <div
-              class="cube scene-cube cube-a"
-              id="blockA"
-            >
-
-              <div class="cube-letter">
-                A
-              </div>
-
-              <div class="cube-label">
-                Accountable
-              </div>
-
-            </div>
-
-
-
-            <div
-              class="cube scene-cube cube-c"
-              id="blockC"
-            >
-
-              <div class="cube-letter">
-                C
-              </div>
-
-              <div class="cube-label">
-                Consulted
-              </div>
-
-            </div>
-
-
-
-            <div
-              class="cube scene-cube cube-i"
-              id="blockI"
-            >
-
-              <div class="cube-letter">
-                I
-              </div>
-
-              <div class="cube-label">
-                Informed
-              </div>
-
-            </div>
-
-
-          </div>
-
-
-
-          <!-- PROFESSIONAL WORKER -->
-
-          <div
-            class="worker"
-            id="worker"
-          >
-
-
-            <svg
-              viewBox="0 0 112 235"
-              aria-hidden="true"
-            >
-
-
-              <!-- subtle shadow -->
-
-              <ellipse
-                cx="55"
-                cy="229"
-                rx="34"
-                ry="5"
-                fill="rgba(20,55,58,.18)"
-              />
-
-
-              <!-- rear arm -->
-
-              <path
-                d="M34 91
-                   C23 112 19 132 15 151"
-                fill="none"
-                stroke="#D89B74"
-                stroke-width="10"
-                stroke-linecap="round"
-              />
-
-
-              <!-- legs -->
-
-              <g class="leg-left">
-
-                <path
-                  d="M47 151 L43 215"
-                  fill="none"
-                  stroke="#17383C"
-                  stroke-width="14"
-                  stroke-linecap="round"
-                />
-
-                <path
-                  d="M42 214 L30 225"
-                  fill="none"
-                  stroke="#162A2E"
-                  stroke-width="8"
-                  stroke-linecap="round"
-                />
-
-              </g>
-
-
-              <g class="leg-right">
-
-                <path
-                  d="M66 151 L71 215"
-                  fill="none"
-                  stroke="#17383C"
-                  stroke-width="14"
-                  stroke-linecap="round"
-                />
-
-                <path
-                  d="M70 214 L83 225"
-                  fill="none"
-                  stroke="#162A2E"
-                  stroke-width="8"
-                  stroke-linecap="round"
-                />
-
-              </g>
-
-
-
-              <!-- shirt -->
-
-              <path
-                d="
-                  M35 74
-                  Q55 65 75 74
-                  L78 151
-                  Q56 161 32 151
-                  Z
-                "
-                fill="#F8FAF9"
-                stroke="#DDE6E4"
-                stroke-width="2"
-              />
-
-
-              <!-- shirt collar -->
-
-              <path
-                d="M47 75 L55 86 L63 75"
-                fill="#E8EEEC"
-              />
-
-
-              <!-- tie -->
-
-              <path
-                d="
-                  M52 82
-                  L58 82
-                  L60 91
-                  L56 134
-                  L51 91
-                  Z
-                "
-                fill="#D9524E"
-              />
-
-
-              <!-- neck -->
-
-              <rect
-                x="49"
-                y="60"
-                width="14"
-                height="17"
-                rx="6"
-                fill="#D89B74"
-              />
-
-
-              <!-- head -->
-
-              <ellipse
-                cx="56"
-                cy="46"
-                rx="22"
-                ry="25"
-                fill="#D89B74"
-              />
-
-
-              <!-- hair -->
-
-              <path
-                d="
-                  M34 43
-                  Q34 18 57 18
-                  Q79 18 79 43
-                  Q72 30 61 29
-                  Q46 28 34 43
-                "
-                fill="#4C2928"
-              />
-
-
-              <!-- ear -->
-
-              <ellipse
-                cx="35"
-                cy="48"
-                rx="3"
-                ry="6"
-                fill="#D89B74"
-              />
-
-
-              <!-- subtle face profile -->
-
-              <circle
-                cx="70"
-                cy="45"
-                r="1.5"
-                fill="#543A34"
-              />
-
-              <path
-                d="M68 56 Q73 58 76 54"
-                fill="none"
-                stroke="#9D6C55"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-
-
-              <!-- front arm -->
-
-              <path
-                d="M73 91
-                   C84 111 88 130 94 147"
-                fill="none"
-                stroke="#D89B74"
-                stroke-width="10"
-                stroke-linecap="round"
-              />
-
-
-              <!-- sleeves -->
-
-              <path
-                d="M34 82 Q26 87 25 100"
-                fill="none"
-                stroke="#F8FAF9"
-                stroke-width="14"
-                stroke-linecap="round"
-              />
-
-              <path
-                d="M75 82 Q84 87 85 100"
-                fill="none"
-                stroke="#F8FAF9"
-                stroke-width="14"
-                stroke-linecap="round"
-              />
-
-
-            </svg>
-
-
-
-            <!-- BLOCK HELD BY WORKER -->
-
-            <div
-              class="carry-cube"
-              id="carryCube"
-            >
-              R
-            </div>
-
-
-          </div>
-
-
-        </div>
-
-
-
-        <!-- EXPLANATION -->
-
-        <div class="explain-card">
-
-
-          <div class="role-head">
-
-            <div
-              class="role-letter"
-              id="roleLetter"
-            >
-              ?
-            </div>
-
-
-            <div>
-
-              <div class="eyebrow">
-                Current role
-              </div>
-
-              <h3 id="roleTitle">
-                Ready to build?
-              </h3>
-
-            </div>
-
-          </div>
-
-
-
-          <div
-            class="role-question"
-            id="roleQuestion"
-          >
-            Start with the person doing the work.
-          </div>
-
-
-
-          <p
-            class="role-copy"
-            id="roleCopy"
-          >
-            Bring the first block into the project
-            to begin building the RACI model.
-          </p>
-
-
-
-          <div
-            class="key-point"
-            id="roleTip"
-          >
-            RACI helps reduce unclear ownership,
-            duplicated effort and unnecessary communication.
-          </div>
-
-
-
-          <button
-            class="build-btn"
-            id="buildBtn"
-            type="button"
-          >
-            Bring the R block →
-          </button>
-
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         SUMMARY
-         =================================================== -->
-
-    <section
-      class="screen"
-      id="summary"
-    >
-
-      <div class="eyebrow">
-        RACI in one view
-      </div>
-
-
-      <h2>
-        Four roles. Four different expectations.
-      </h2>
-
-
-      <p>
-        RACI works when each stakeholder understands
-        the type of involvement expected from them.
-      </p>
-
-
-
-      <div class="summary-grid">
-
-
-        <div class="summary-card">
-
-          <div
-            class="summary-letter"
-            style="
-              background:var(--r)
-            "
-          >
-            R
-          </div>
-
-          <h3>
-            Responsible
-          </h3>
-
-          <p>
-            Performs the work needed to complete
-            the task or deliverable.
-          </p>
-
-        </div>
-
-
-
-        <div class="summary-card">
-
-          <div
-            class="summary-letter"
-            style="
-              background:var(--a)
-            "
-          >
-            A
-          </div>
-
-          <h3>
-            Accountable
-          </h3>
-
-          <p>
-            Owns the final outcome and has
-            final approval or decision authority.
-          </p>
-
-        </div>
-
-
-
-        <div class="summary-card">
-
-          <div
-            class="summary-letter"
-            style="
-              background:var(--c)
-            "
-          >
-            C
-          </div>
-
-          <h3>
-            Consulted
-          </h3>
-
-          <p>
-            Provides expertise or input before
-            the work or decision is finalised.
-          </p>
-
-        </div>
-
-
-
-        <div class="summary-card">
-
-          <div
-            class="summary-letter"
-            style="
-              background:var(--i)
-            "
-          >
-            I
-          </div>
-
-          <h3>
-            Informed
-          </h3>
-
-          <p>
-            Needs visibility or updates without
-            directly contributing to the decision.
-          </p>
-
-        </div>
-
-
-      </div>
-
-
-
-      <div
-        class="key-point"
-        style="
-          margin-top:24px;
-          font-size:16px
-        "
-      >
-        <b>Useful principle:</b>
-        A task may have multiple Responsible contributors,
-        but keeping one clear Accountable owner usually
-        improves decision-making.
-      </div>
-
-
-    </section>
-
-
-
-    <!-- ===================================================
-         KNOWLEDGE CHECK
-         =================================================== -->
-
-    <section
-      class="screen"
-      id="quiz"
-    >
-
-      <div class="quiz-wrap">
-
-
-        <div class="quiz-head">
-
-          <div>
-
-            <div class="eyebrow">
-              Knowledge check
-            </div>
-
-            <h2>
-              Who is R, A, C or I?
-            </h2>
-
-          </div>
-
-
-          <div
-            class="score-chip"
-            id="quizScore"
-          >
-            Score: 0 / 0
-          </div>
-
-        </div>
-
-
-
-        <p>
-          Answer all seven workplace scenarios.
-          You need at least
-          <b>6 out of 7</b>
-          correct to complete the module.
-        </p>
-
-
-
-        <div class="scenario">
-
-          <p id="questionText"></p>
-
-        </div>
-
-
-
-        <div id="options"></div>
-
-
-
-        <div
-          class="feedback"
-          id="feedback"
-        ></div>
-
-
-
-        <div class="quiz-next">
-
-          <button
-            id="quizNext"
-            type="button"
-            disabled
-          >
-            Next question →
-          </button>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         RESULT
-         =================================================== -->
-
-    <section
-      class="screen"
-      id="result"
-    >
-
-      <div class="result-card">
-
-
-        <div class="eyebrow">
-          Your result
-        </div>
-
-
-
-        <div
-          class="result-ring"
-          id="resultRing"
-        >
-
-          <div
-            class="result-number"
-            id="resultNumber"
-          >
-            0%
-          </div>
-
-        </div>
-
-
-
-        <h2 id="resultTitle">
-          Result
-        </h2>
-
-
-
-        <p id="resultText"></p>
-
-
-
-        <div class="result-meta">
-
-          <div
-            class="meta"
-            id="correctCount"
-          >
-            0 / 7 correct
-          </div>
-
-          <div class="meta">
-            Pass mark: 85%
-          </div>
-
-          <div class="meta">
-            6 / 7 required
-          </div>
-
-        </div>
-
-
-
-        <div
-          class="status"
-          id="recordStatus"
-        >
-          Completion tracking status will appear here.
-        </div>
-
-
-
-        <!-- CERTIFICATE -->
-
-        <div
-          class="certificate"
-          id="certificate"
-        >
-
-
-          <div class="cert-label">
-            Certificate of Completion
-          </div>
-
-
-          <div class="cert-copy">
-            This certifies that
-          </div>
-
-
-          <div
-            class="cert-name"
-            id="certName"
-          ></div>
-
-
-          <div class="cert-copy">
-            has successfully completed
-          </div>
-
-
-          <div class="cert-module">
-            RACI — Who Does What?
-          </div>
-
-
-          <div class="cert-copy">
-            and demonstrated understanding of
-            Responsible, Accountable, Consulted and Informed roles.
-          </div>
-
-
-
-          <div class="result-meta">
-
-            <div
-              class="meta"
-              id="certScore"
-            ></div>
-
-            <div
-              class="meta"
-              id="certDate"
-            ></div>
-
-          </div>
-
-
-
-          <div class="cert-controls">
-
-            <button
-              type="button"
-              id="printBtn"
-            >
-              Print / Save Certificate
-            </button>
-
-          </div>
-
-
-        </div>
-
-
-
-        <button
-          type="button"
-          class="retry"
-          id="retry"
-        >
-          Retry knowledge check
-        </button>
-
-
-      </div>
-
-    </section>
-
-
-  </main>
-
-
-
-  <!-- =====================================================
-       NAV
-       ===================================================== -->
-
-  <div
-    class="bottom-nav"
-    id="bottomNav"
-  >
-
-    <button
-      class="nav-btn nav-back"
-      id="back"
-      type="button"
-    >
-      ← Back
-    </button>
-
-
-    <div
-      class="time"
-      id="time"
-    >
-      Estimated time: 5 min
-    </div>
-
-
-    <button
-      class="nav-btn nav-next"
-      id="next"
-      type="button"
-    >
-      Start →
-    </button>
-
-
-  </div>
-
-
+<div class="topline"></div>
+<div class="header">
+ <div class="brand">ROMA / LEARNING STUDIO</div>
+ <div class="progress"><i id="progress"></i></div>
+ <div class="counter" id="counter">Start</div>
 </div>
 
+<main>
+<section class="screen active" id="intro">
+ <div class="intro">
+  <div>
+   <div class="eyebrow">Collaboration & Ownership</div>
+   <h1>RACI.<br>Who Does What?</h1>
+   <p class="lead">
+    Clear roles. Better collaboration. Less confusion.
+   </p>
+   <p>
+    Discover how the RACI model clarifies who performs
+    the work, who owns the result, whose input matters
+    and who needs to stay informed.
+   </p>
+   <span class="pill">5 minutes</span>
+   <span class="pill">Interactive animation</span>
+   <span class="pill">7 workplace scenarios</span>
+   <div class="identity">
+    <label for="learnerName">Your name</label>
+    <input id="learnerName" autocomplete="name"
+           placeholder="Enter your name">
+    <small>
+     Optional. Used only for your local completion
+     certificate. No personal data or results are
+     submitted to a tracking system.
+    </small>
+   </div>
+  </div>
+  <div class="visual">
+   <div class="stack">
+    <div class="block" style="background:var(--r)">
+     <strong>R</strong><span>Responsible</span>
+    </div>
+    <div class="block" style="background:var(--a)">
+     <strong>A</strong><span>Accountable</span>
+    </div>
+    <div class="block" style="background:var(--c)">
+     <strong>C</strong><span>Consulted</span>
+    </div>
+    <div class="block" style="background:var(--i)">
+     <strong>I</strong><span>Informed</span>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
 
+<section class="screen" id="build">
+ <div class="eyebrow">Build the RACI Model</div>
+ <h2>One project. Four distinct roles.</h2>
+ <p>
+  Build the model step by step and discover how
+  each role creates clarity.
+ </p>
+ <div class="build-layout">
+  <div class="scene">
+   <div class="floor"></div>
+   <div class="ladder" id="ladder">
+    <div class="rung"></div>
+    <div class="rung"></div>
+    <div class="rung"></div>
+    <div class="rung"></div>
+   </div>
+   <div class="scene-stack">
+    <div class="scene-block" id="blockR">
+     <strong>R</strong><span>Responsible</span>
+    </div>
+    <div class="scene-block" id="blockA">
+     <strong>A</strong><span>Accountable</span>
+    </div>
+    <div class="scene-block" id="blockC">
+     <strong>C</strong><span>Consulted</span>
+    </div>
+    <div class="scene-block" id="blockI">
+     <strong>I</strong><span>Informed</span>
+    </div>
+   </div>
+   <div class="worker" id="worker">
+    <svg viewBox="0 0 112 235" aria-hidden="true">
+     <ellipse cx="55" cy="229" rx="34" ry="5"
+              fill="#17323825"/>
+     <path d="M45 150 L41 215 L30 225"
+           fill="none" stroke="#17263d"
+           stroke-width="13" stroke-linecap="round"/>
+     <path d="M67 150 L72 215 L84 225"
+           fill="none" stroke="#17263d"
+           stroke-width="13" stroke-linecap="round"/>
+     <path d="M35 77 Q55 66 76 77 L80 150
+              Q55 163 31 150 Z"
+           fill="#fff" stroke="#d5e1e5"
+           stroke-width="2"/>
+     <path d="M51 83 L59 83 L61 92 L56 130
+              L51 92 Z" fill="#cc6258"/>
+     <path d="M34 90 L17 146"
+           stroke="#c99070" stroke-width="10"
+           stroke-linecap="round"/>
+     <path d="M75 90 L94 146"
+           stroke="#c99070" stroke-width="10"
+           stroke-linecap="round"/>
+     <rect x="49" y="60" width="14" height="19"
+           rx="5" fill="#c99070"/>
+     <ellipse cx="56" cy="44" rx="22" ry="25"
+              fill="#c99070"/>
+     <path d="M34 43 Q32 16 57 18
+              Q80 18 79 44 Q65 27 34 43"
+           fill="#3e302d"/>
+     <circle cx="69" cy="44" r="2" fill="#322a28"/>
+     <path d="M65 56 Q71 60 76 54"
+           fill="none" stroke="#8d5c4a"
+           stroke-width="2"/>
+    </svg>
+    <div class="carry" id="carry">R</div>
+   </div>
+  </div>
 
-<!-- =======================================================
-     TRACKING
-     ======================================================= -->
+  <div class="explain">
+   <div class="role-head">
+    <div class="role-letter" id="roleLetter">?</div>
+    <div>
+     <div class="eyebrow">Current Role</div>
+     <h3 id="roleTitle">Ready to build?</h3>
+    </div>
+   </div>
+   <div class="role-question" id="roleQuestion">
+    Start with the person doing the work.
+   </div>
+   <p id="roleCopy">
+    Bring the first block into the project to begin.
+   </p>
+   <div class="tip" id="roleTip">
+    RACI reduces unclear ownership and duplicated effort.
+   </div>
+   <button class="action build-btn" id="buildBtn"
+           type="button">
+    Bring the R block →
+   </button>
+  </div>
+ </div>
+</section>
 
-<iframe
-  name="trackingFrame"
-  style="display:none"
-  title="Tracking"
-></iframe>
+<section class="screen" id="summary">
+ <div class="eyebrow">RACI at a Glance</div>
+ <h2>Four roles. Four expectations.</h2>
+ <p>
+  Each role defines a different kind of involvement
+  in a task or project.
+ </p>
+ <div class="summary-grid" id="summaryGrid"></div>
+ <div class="tip">
+  <b>Useful principle:</b> A task may have multiple
+  Responsible contributors, but one clearly identified
+  Accountable owner usually improves decision-making.
+ </div>
+</section>
 
+<section class="screen" id="quiz">
+ <div class="quiz-wrap">
+  <div class="quiz-top">
+   <div class="eyebrow" id="quizIndex">Question 1 of 7</div>
+   <div class="score-chip" id="quizScore">Score: 0 / 0</div>
+  </div>
+  <h2>Who is R, A, C or I?</h2>
+  <p>
+   Answer seven workplace scenarios.
+   You need six correct answers to complete this module.
+  </p>
+  <div class="scenario">
+   <p id="scenarioText"></p>
+  </div>
+  <div id="options"></div>
+  <div class="feedback" id="feedback" aria-live="polite"></div>
+  <div class="quiz-next">
+   <button class="action" id="quizNext" type="button" disabled>
+    Next Question →
+   </button>
+  </div>
+ </div>
+</section>
 
-<form
-  id="trackingForm"
-  method="POST"
-  target="trackingFrame"
-  style="display:none"
->
+<section class="screen" id="result">
+ <div class="result-card">
+  <div class="eyebrow">Your Learning Result</div>
+  <div class="result-ring" id="resultRing">
+   <strong id="resultNumber">0%</strong>
+  </div>
+  <h2 id="resultTitle">Your Result</h2>
+  <p id="resultText"></p>
 
-  <input
-    type="hidden"
-    name="name"
-    id="trackName"
-  >
+  <div class="certificate" id="certificate">
+   <div class="eyebrow">Certificate of Completion</div>
+   <h2>RACI — Who Does What?</h2>
+   <p>This certifies that</p>
+   <div class="cert-name" id="certName"></div>
+   <p>has completed this interactive microlearning.</p>
+   <p class="cert-meta" id="certScore"></p>
+   <p class="cert-meta" id="certDate"></p>
+   <p class="cert-meta">
+    Self-paced learning completion · Roma Learning Studio
+   </p>
+   <button id="printBtn" class="action" type="button">
+    Print / Save Certificate
+   </button>
+  </div>
 
-  <input
-    type="hidden"
-    name="module"
-    id="trackModule"
-  >
+  <button id="retry" class="action" type="button">
+   Retry Knowledge Check
+  </button>
+ </div>
+</section>
+</main>
 
-  <input
-    type="hidden"
-    name="score"
-    id="trackScore"
-  >
+<div class="nav" id="nav">
+ <button id="back" class="back" type="button">← Back</button>
+ <span style="font-size:12px;color:var(--muted)">
+  Self-paced learning
+ </span>
+ <button id="next" class="next" type="button">Start →</button>
+</div>
 
-  <input
-    type="hidden"
-    name="status"
-    id="trackStatus"
-  >
-
-</form>
-
-
+<div class="footer">
+ Designed by Roma Alamchandani ·
+ <a href="../">Back to Microlearning Studio ↗</a>
+</div>
+</div>
 
 <script>
+(()=>{
+"use strict";
 
-
-/* =========================================================
-   TRACKING CONFIG
-   ========================================================= */
-
-const TRACKING_URL =
-'https://script.google.com/a/macros/numerator.com/s/AKfycbw9a4dIXIKH9pRP8uJDBmgBWUtnSxsMa-wG9uciDxuDQ5ky5la_83E7V4oz0xeadcLjbw/exec';
-
-
-const MODULE =
-'RACI';
-
-
-const PASS_PERCENT =
-85;
-
-
-/* =========================================================
-   ROLE DATA
-   ========================================================= */
-
-const roles = [
-
-  {
-
-    letter:'R',
-
-    name:'Responsible',
-
-    color:'#f2a12f',
-
-    question:
-      'Who does the work?',
-
-    copy:
-      'Responsible is the person or people who perform the task and produce the required deliverable.',
-
-    tip:
-      'A task can have more than one Responsible contributor, but the expected work should still be clear.',
-
-    block:'blockR'
-
-  },
-
-
-  {
-
-    letter:'A',
-
-    name:'Accountable',
-
-    color:'#df675b',
-
-    question:
-      'Who owns the final result?',
-
-    copy:
-      'Accountable is the person ultimately answerable for the outcome. They approve the work or make the final decision.',
-
-    tip:
-      'Keeping one clearly identified Accountable owner reduces ambiguity around final ownership.',
-
-    block:'blockA'
-
-  },
-
-
-  {
-
-    letter:'C',
-
-    name:'Consulted',
-
-    color:'#237f7a',
-
-    question:
-      'Whose input do we need?',
-
-    copy:
-      'Consulted stakeholders provide expertise, advice or context before the work or decision is finalised.',
-
-    tip:
-      'Consultation is two-way communication. Ask for input where it genuinely improves the decision.',
-
-    block:'blockC'
-
-  },
-
-
-  {
-
-    letter:'I',
-
-    name:'Informed',
-
-    color:'#788dbd',
-
-    question:
-      'Who needs to know?',
-
-    copy:
-      'Informed stakeholders need visibility on progress or decisions but are not required to contribute directly.',
-
-    tip:
-      'Informed is primarily one-way communication: keep relevant stakeholders updated without creating unnecessary involvement.',
-
-    block:'blockI'
-
-  }
-
+const PASS=85;
+const roles=[
+ {
+  letter:"R",name:"Responsible",color:"#d68b22",
+  question:"Who does the work?",
+  copy:"The person or people performing the task and creating the deliverable.",
+  tip:"Multiple people may be Responsible, but expectations should remain clear.",
+  block:"blockR"
+ },
+ {
+  letter:"A",name:"Accountable",color:"#cc6258",
+  question:"Who owns the outcome?",
+  copy:"The person ultimately answerable for the result and final approval.",
+  tip:"One Accountable owner generally reduces ambiguity.",
+  block:"blockA"
+ },
+ {
+  letter:"C",name:"Consulted",color:"#147d83",
+  question:"Whose input is needed?",
+  copy:"Stakeholders who provide expertise or advice before a decision.",
+  tip:"Consultation is two-way communication.",
+  block:"blockC"
+ },
+ {
+  letter:"I",name:"Informed",color:"#657eb2",
+  question:"Who needs to know?",
+  copy:"Stakeholders who require updates but do not directly contribute.",
+  tip:"Informed communication is primarily one-way.",
+  block:"blockI"
+ }
 ];
 
-
-/* =========================================================
-   QUIZ DATA
-   ========================================================= */
-
-const questions = [
-
-  {
-
-    text:
-      'Priya is assigned to prepare the first draft of a monthly performance report. Which RACI role best describes Priya?',
-
-    options:[
-      'Responsible',
-      'Accountable',
-      'Consulted',
-      'Informed'
-    ],
-
-    answer:0,
-
-    explanation:
-      'Priya is Responsible because she is performing the work required to create the report.'
-
-  },
-
-
-  {
-
-    text:
-      'The Team Lead reviews the completed report, owns the final quality and gives approval before it is shared. Which role is this?',
-
-    options:[
-      'Responsible',
-      'Accountable',
-      'Consulted',
-      'Informed'
-    ],
-
-    answer:1,
-
-    explanation:
-      'The Team Lead is Accountable because they own the final result and approval.'
-
-  },
-
-
-  {
-
-    text:
-      'Before changing a workflow, the project team asks an experienced SME for technical input. The SME does not own or execute the project. Which role fits best?',
-
-    options:[
-      'Responsible',
-      'Accountable',
-      'Consulted',
-      'Informed'
-    ],
-
-    answer:2,
-
-    explanation:
-      'The SME is Consulted because their expertise is requested before the decision is finalised.'
-
-  },
-
-
-  {
-
-    text:
-      'A senior stakeholder does not need to contribute to a project but needs regular updates on its progress. Which RACI role fits best?',
-
-    options:[
-      'Responsible',
-      'Accountable',
-      'Consulted',
-      'Informed'
-    ],
-
-    answer:3,
-
-    explanation:
-      'The stakeholder is Informed because they require visibility without active involvement.'
-
-  },
-
-
-  {
-
-    text:
-      'Which RACI role is generally best kept to one clearly identified person for a specific task or decision?',
-
-    options:[
-      'Responsible',
-      'Accountable',
-      'Consulted',
-      'Informed'
-    ],
-
-    answer:1,
-
-    explanation:
-      'A single Accountable owner reduces ambiguity around final ownership and decision-making.'
-
-  },
-
-
-  {
-
-    text:
-      'A project has six people marked Consulted for almost every task. Meetings are becoming slow and decisions are repeatedly delayed. What is the most likely RACI issue?',
-
-    options:[
-      'There are too few Responsible people',
-      'Too many stakeholders are being consulted',
-      'There is no need for an Accountable person',
-      'Everyone should be moved to Informed'
-    ],
-
-    answer:1,
-
-    explanation:
-      'Over-consultation can slow decision-making. RACI should identify where stakeholder input is genuinely necessary.'
-
-  },
-
-
-  {
-
-    text:
-      'Which situation is the strongest reason to create a RACI matrix?',
-
-    options:[
-      'A simple task completed independently by one person',
-      'A cross-functional project where ownership and stakeholder involvement are unclear',
-      'A personal to-do list',
-      'A meeting where everyone already understands their responsibility'
-    ],
-
-    answer:1,
-
-    explanation:
-      'RACI is most useful when multiple stakeholders are involved and ownership, input and communication responsibilities need clarification.'
-
-  }
-
+const questions=[
+ {
+  text:"Priya prepares the first draft of a monthly report. Which role describes Priya?",
+  options:["Responsible","Accountable","Consulted","Informed"],
+  answer:0,
+  explanation:"Priya performs the work, making her Responsible."
+ },
+ {
+  text:"A team lead owns the final report quality and approves it. Which role is this?",
+  options:["Responsible","Accountable","Consulted","Informed"],
+  answer:1,
+  explanation:"Final ownership and approval indicate Accountable."
+ },
+ {
+  text:"An SME provides technical advice before a workflow change but does not execute it. Which role fits?",
+  options:["Responsible","Accountable","Consulted","Informed"],
+  answer:2,
+  explanation:"The SME is Consulted for expertise."
+ },
+ {
+  text:"A stakeholder needs progress updates but does not contribute directly. Which role fits?",
+  options:["Responsible","Accountable","Consulted","Informed"],
+  answer:3,
+  explanation:"The stakeholder is Informed."
+ },
+ {
+  text:"Which role is generally best assigned to one clear owner for each task?",
+  options:["Responsible","Accountable","Consulted","Informed"],
+  answer:1,
+  explanation:"One Accountable owner reduces confusion."
+ },
+ {
+  text:"Too many stakeholders are consulted for every task, slowing decisions. What is the issue?",
+  options:[
+   "Too few Responsible contributors",
+   "Over-consultation",
+   "No need for Accountable ownership",
+   "Everyone must become Informed"
+  ],
+  answer:1,
+  explanation:"Over-consultation can delay decision-making."
+ },
+ {
+  text:"When is a RACI matrix most useful?",
+  options:[
+   "A simple personal task",
+   "A cross-functional project with unclear ownership",
+   "A personal to-do list",
+   "A project where responsibilities are already clear"
+  ],
+  answer:1,
+  explanation:"RACI helps clarify responsibilities across stakeholders."
+ }
 ];
 
+const screens=[...document.querySelectorAll(".screen")];
+const progress=document.getElementById("progress");
+const counter=document.getElementById("counter");
+const back=document.getElementById("back");
+const next=document.getElementById("next");
+const nav=document.getElementById("nav");
 
-/* =========================================================
-   STATE
-   ========================================================= */
-
-const screens = [
-
-  document.getElementById(
-    'intro'
-  ),
-
-  document.getElementById(
-    'build'
-  ),
-
-  document.getElementById(
-    'summary'
-  ),
-
-  document.getElementById(
-    'quiz'
-  ),
-
-  document.getElementById(
-    'result'
-  )
-
-];
-
-
-let screenIndex =
-0;
-
-
-let roleIndex =
-0;
-
-
-let quizIndex =
-0;
-
-
-let correct =
-0;
-
-
-let answers =
-Array(
-  questions.length
-).fill(null);
-
-
-let completionSubmitted =
-false;
-
-
-let buildBusy =
-false;
-
-
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
-
-const progress =
-document.getElementById(
-  'progress'
-);
-
-
-const count =
-document.getElementById(
-  'count'
-);
-
-
-const back =
-document.getElementById(
-  'back'
-);
-
-
-const next =
-document.getElementById(
-  'next'
-);
-
-
-const bottomNav =
-document.getElementById(
-  'bottomNav'
-);
-
-
-const time =
-document.getElementById(
-  'time'
-);
-
-
-const learnerName =
-document.getElementById(
-  'learnerName'
-);
-
-
-const worker =
-document.getElementById(
-  'worker'
-);
-
-
-const carryCube =
-document.getElementById(
-  'carryCube'
-);
-
-
-const ladder =
-document.getElementById(
-  'ladder'
-);
-
-
-const buildBtn =
-document.getElementById(
-  'buildBtn'
-);
-
-
-/* =========================================================
-   GENERAL NAV
-   ========================================================= */
+let current=0,roleIndex=0,quizIndex=0,correct=0;
+let answered=false,busy=false;
 
 function showScreen(index){
-
-  screenIndex =
-  Math.max(
-    0,
-    Math.min(
-      index,
-      screens.length - 1
-    )
-  );
-
-
-  screens.forEach(
-    (screen,i) => {
-
-      screen
-        .classList
-        .toggle(
-          'active',
-          i === screenIndex
-        );
-
-    }
-  );
-
-
-  const map =
-  [
-    8,
-    45,
-    64,
-    80,
-    100
-  ];
-
-
-  progress.style.width =
-  map[screenIndex] + '%';
-
-
-  if(screenIndex === 0){
-
-    count.textContent =
-    'Start';
-
-    back.style.visibility =
-    'hidden';
-
-    next.style.display =
-    '';
-
-    next.textContent =
-    'Start →';
-
-    next.disabled =
-    learnerName
-      .value
-      .trim()
-      .length < 2;
-
-    time.textContent =
-    'Estimated time: 5 min';
-
-    bottomNav.style.display =
-    'flex';
-
-  }
-
-
-  else if(screenIndex === 1){
-
-    count.textContent =
-    'Build RACI';
-
-    back.style.visibility =
-    'visible';
-
-    next.style.display =
-    'none';
-
-    time.textContent =
-    'Build each role';
-
-    bottomNav.style.display =
-    'flex';
-
-  }
-
-
-  else if(screenIndex === 2){
-
-    count.textContent =
-    'RACI summary';
-
-    back.style.visibility =
-    'visible';
-
-    next.style.display =
-    '';
-
-    next.textContent =
-    'Knowledge check →';
-
-    next.disabled =
-    false;
-
-    time.textContent =
-    'Four roles in one view';
-
-    bottomNav.style.display =
-    'flex';
-
-  }
-
-
-  else if(screenIndex === 3){
-
-    count.textContent =
-    `Question ${quizIndex + 1} / ${questions.length}`;
-
-    back.style.visibility =
-    'visible';
-
-    next.style.display =
-    'none';
-
-    time.textContent =
-    'Knowledge check';
-
-    bottomNav.style.display =
-    'flex';
-
-    renderQuestion();
-
-  }
-
-
-  else if(screenIndex === 4){
-
-    count.textContent =
-    'Result';
-
-    bottomNav.style.display =
-    'none';
-
-    renderResult();
-
-  }
-
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-
+ current=index;
+ screens.forEach((s,i)=>s.classList.toggle("active",i===index));
+ progress.style.width=Math.round((index+1)/screens.length*100)+"%";
+ counter.textContent=`${index+1} / ${screens.length}`;
+ nav.style.display=index===4?"none":"flex";
+ back.style.visibility=index===0?"hidden":"visible";
+ next.style.display=(index===0||index===2)?"":"none";
+ next.textContent=index===0?"Start →":"Knowledge Check →";
+ if(index===3)renderQuestion();
+ if(index===4)renderResult();
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
+next.addEventListener("click",()=>{
+ if(current===0)showScreen(1);
+ else if(current===2)showScreen(3);
+});
 
-/* =========================================================
-   NAME
-   ========================================================= */
+back.addEventListener("click",()=>{
+ if(busy)return;
+ if(current===1)showScreen(0);
+ else if(current===2)showScreen(1);
+ else if(current===3)showScreen(2);
+});
 
-learnerName
-.addEventListener(
-  'input',
-  () => {
+const worker=document.getElementById("worker");
+const carry=document.getElementById("carry");
+const ladder=document.getElementById("ladder");
+const buildBtn=document.getElementById("buildBtn");
 
-    if(screenIndex === 0){
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
-      next.disabled =
-      learnerName
-        .value
-        .trim()
-        .length < 2;
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   MAIN NAV EVENTS
-   ========================================================= */
-
-next
-.addEventListener(
-  'click',
-  () => {
-
-    if(
-      screenIndex === 0 &&
-      learnerName
-        .value
-        .trim()
-        .length >= 2
-    ){
-
-      showScreen(1);
-
-    }
-
-    else if(
-      screenIndex === 2
-    ){
-
-      showScreen(3);
-
-    }
-
-  }
-);
-
-
-back
-.addEventListener(
-  'click',
-  () => {
-
-    if(screenIndex === 1){
-
-      showScreen(0);
-
-    }
-
-    else if(screenIndex === 2){
-
-      showScreen(1);
-
-    }
-
-    else if(screenIndex === 3){
-
-      showScreen(2);
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   ROLE EXPLANATION
-   ========================================================= */
-
-function updateExplanation(role){
-
-  const roleLetter =
-  document.getElementById(
-    'roleLetter'
-  );
-
-
-  roleLetter.textContent =
-  role.letter;
-
-
-  roleLetter.style.background =
-  role.color;
-
-
-  document
-    .getElementById(
-      'roleTitle'
-    )
-    .textContent =
-    role.name;
-
-
-  document
-    .getElementById(
-      'roleQuestion'
-    )
-    .textContent =
-    role.question;
-
-
-  document
-    .getElementById(
-      'roleCopy'
-    )
-    .textContent =
-    role.copy;
-
-
-  document
-    .getElementById(
-      'roleTip'
-    )
-    .innerHTML =
-    `<b>Remember:</b> ${role.tip}`;
-
+function explain(role){
+ document.getElementById("roleLetter").textContent=role.letter;
+ document.getElementById("roleLetter").style.background=role.color;
+ document.getElementById("roleTitle").textContent=role.name;
+ document.getElementById("roleQuestion").textContent=role.question;
+ document.getElementById("roleCopy").textContent=role.copy;
+ document.getElementById("roleTip").textContent=role.tip;
 }
 
-
-/* =========================================================
-   ANIMATION HELPERS
-   ========================================================= */
-
-function wait(ms){
-
-  return new Promise(
-    resolve =>
-      setTimeout(
-        resolve,
-        ms
-      )
-  );
-
+async function moveWorker(left,bottom,duration=900){
+ worker.classList.add("walking");
+ worker.style.transitionDuration=duration+"ms";
+ worker.style.left=left;
+ worker.style.bottom=bottom;
+ await wait(duration+50);
+ worker.classList.remove("walking");
 }
-
-
-async function moveWorker(
-  left,
-  bottom,
-  mode='walk',
-  duration=1150
-){
-
-  worker.style.transitionDuration =
-  `${duration}ms`;
-
-
-  worker.classList.remove(
-    'walking',
-    'climbing'
-  );
-
-
-  if(mode === 'walk'){
-
-    worker.classList.add(
-      'walking'
-    );
-
-  }
-
-
-  if(mode === 'climb'){
-
-    worker.classList.add(
-      'climbing'
-    );
-
-  }
-
-
-  worker.style.left =
-  left;
-
-
-  worker.style.bottom =
-  bottom;
-
-
-  await wait(
-    duration + 40
-  );
-
-
-  worker.classList.remove(
-    'walking'
-  );
-
-}
-
-
-async function resetWorker(){
-
-  await moveWorker(
-    '7%',
-    '65px',
-    'walk',
-    1050
-  );
-
-}
-
-
-/* =========================================================
-   CARRY BLOCK
-   ========================================================= */
-
-function showCarry(role){
-
-  carryCube.textContent =
-  role.letter;
-
-
-  carryCube.style.background =
-  role.color;
-
-
-  carryCube
-    .classList
-    .add(
-      'show'
-    );
-
-}
-
-
-function hideCarry(){
-
-  carryCube
-    .classList
-    .remove(
-      'show'
-    );
-
-}
-
-
-/* =========================================================
-   BUILD SEQUENCE
-   ========================================================= */
 
 async function buildRole(){
+ if(busy)return;
+ if(roleIndex>=roles.length){
+  showScreen(2);return;
+ }
+ busy=true;
+ buildBtn.disabled=true;
 
-  if(buildBusy){
-    return;
+ const role=roles[roleIndex];
+ const reduce=window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+ ).matches;
+
+ if(!reduce){
+  carry.textContent=role.letter;
+  carry.style.background=role.color;
+  carry.classList.add("show");
+
+  if(roleIndex>=2)ladder.classList.add("show");
+
+  if(roleIndex===0){
+   await moveWorker("55%","50px");
+  }else if(roleIndex===1){
+   await moveWorker("55%","105px");
+  }else if(roleIndex===2){
+   await moveWorker("43%","50px");
+   await moveWorker("48%","190px");
+  }else{
+   await moveWorker("43%","50px");
+   await moveWorker("48%","265px");
   }
-
-
-  if(
-    roleIndex >=
-    roles.length
-  ){
-
-    showScreen(2);
-
-    return;
-
-  }
-
-
-  buildBusy =
-  true;
-
-
-  buildBtn.disabled =
-  true;
-
-
-  const role =
-  roles[
-    roleIndex
-  ];
-
-
-  /* -------------------------------------------------------
-     RESPONSIBLE
-     ------------------------------------------------------- */
-
-  if(roleIndex === 0){
-
-    showCarry(role);
-
-    await wait(250);
-
-
-    await moveWorker(
-      '58%',
-      '65px',
-      'walk',
-      1250
-    );
-
-
-    document
-      .getElementById(
-        role.block
-      )
-      .classList
-      .add(
-        'show'
-      );
-
-
-    hideCarry();
-
-
-    updateExplanation(
-      role
-    );
-
-
-    await wait(420);
-
-
-    await resetWorker();
-
-  }
-
-
-  /* -------------------------------------------------------
-     ACCOUNTABLE
-     ------------------------------------------------------- */
-
-  else if(roleIndex === 1){
-
-    showCarry(role);
-
-    await wait(250);
-
-
-    await moveWorker(
-      '58%',
-      '115px',
-      'walk',
-      1250
-    );
-
-
-    document
-      .getElementById(
-        role.block
-      )
-      .classList
-      .add(
-        'show'
-      );
-
-
-    hideCarry();
-
-
-    updateExplanation(
-      role
-    );
-
-
-    await wait(420);
-
-
-    await resetWorker();
-
-  }
-
-
-  /* -------------------------------------------------------
-     CONSULTED
-     ------------------------------------------------------- */
-
-  else if(roleIndex === 2){
-
-    /*
-    First, bring the ladder into the project.
-    */
-
-    await moveWorker(
-      '41%',
-      '65px',
-      'walk',
-      850
-    );
-
-
-    ladder
-      .classList
-      .add(
-        'show'
-      );
-
-
-    await wait(1050);
-
-
-    await resetWorker();
-
-
-    await wait(250);
-
-
-    /*
-    Now carry C and climb.
-    */
-
-    showCarry(role);
-
-
-    await wait(250);
-
-
-    await moveWorker(
-      '48%',
-      '65px',
-      'walk',
-      1000
-    );
-
-
-    await moveWorker(
-      '50%',
-      '215px',
-      'climb',
-      1050
-    );
-
-
-    document
-      .getElementById(
-        role.block
-      )
-      .classList
-      .add(
-        'show'
-      );
-
-
-    hideCarry();
-
-
-    updateExplanation(
-      role
-    );
-
-
-    await wait(400);
-
-
-    await moveWorker(
-      '48%',
-      '65px',
-      'climb',
-      850
-    );
-
-
-    await resetWorker();
-
-  }
-
-
-  /* -------------------------------------------------------
-     INFORMED
-     ------------------------------------------------------- */
-
-  else if(roleIndex === 3){
-
-    showCarry(role);
-
-
-    await wait(250);
-
-
-    await moveWorker(
-      '48%',
-      '65px',
-      'walk',
-      1000
-    );
-
-
-    await moveWorker(
-      '50%',
-      '305px',
-      'climb',
-      1150
-    );
-
-
-    document
-      .getElementById(
-        role.block
-      )
-      .classList
-      .add(
-        'show'
-      );
-
-
-    hideCarry();
-
-
-    updateExplanation(
-      role
-    );
-
-
-    await wait(420);
-
-
-    await moveWorker(
-      '48%',
-      '65px',
-      'climb',
-      900
-    );
-
-
-    await resetWorker();
-
-  }
-
-
-  roleIndex++;
-
-
-  if(
-    roleIndex <
-    roles.length
-  ){
-
-    buildBtn.textContent =
-    `Bring the ${roles[roleIndex].letter} block →`;
-
-  }
-
-  else{
-
-    buildBtn.textContent =
-    'See RACI together →';
-
-  }
-
-
-  buildBtn.disabled =
-  false;
-
-
-  buildBusy =
-  false;
-
+ }
+
+ document.getElementById(role.block).classList.add("show");
+ carry.classList.remove("show");
+ explain(role);
+
+ if(!reduce){
+  await wait(350);
+  await moveWorker("8%","50px");
+ }
+
+ roleIndex++;
+ buildBtn.textContent=roleIndex<roles.length?
+  `Bring the ${roles[roleIndex].letter} block →`:
+  "Explore RACI Summary →";
+ buildBtn.disabled=false;
+ busy=false;
 }
 
+buildBtn.addEventListener("click",buildRole);
 
-/* =========================================================
-   BUILD EVENT
-   ========================================================= */
-
-buildBtn
-.addEventListener(
-  'click',
-  () => {
-
-    if(
-      roleIndex <
-      roles.length
-    ){
-
-      buildRole();
-
-    }
-
-    else{
-
-      showScreen(2);
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   QUIZ RENDER
-   ========================================================= */
+const summary=document.getElementById("summaryGrid");
+roles.forEach(role=>{
+ const card=document.createElement("div");
+ card.className="summary-card";
+ const letter=document.createElement("div");
+ letter.className="summary-letter";
+ letter.style.background=role.color;
+ letter.textContent=role.letter;
+ const title=document.createElement("h3");
+ title.textContent=role.name;
+ const copy=document.createElement("p");
+ copy.textContent=role.copy;
+ card.append(letter,title,copy);
+ summary.appendChild(card);
+});
 
 function renderQuestion(){
+ if(quizIndex>=questions.length){
+  showScreen(4);return;
+ }
+ answered=false;
+ const q=questions[quizIndex];
+ document.getElementById("quizIndex").textContent=
+  `Question ${quizIndex+1} of ${questions.length}`;
+ document.getElementById("quizScore").textContent=
+  `Score: ${correct} / ${quizIndex}`;
+ document.getElementById("scenarioText").textContent=q.text;
 
-  if(
-    quizIndex >=
-    questions.length
-  ){
+ const options=document.getElementById("options");
+ options.replaceChildren();
+ const feedback=document.getElementById("feedback");
+ feedback.className="feedback";
+ feedback.textContent="";
 
-    showScreen(4);
+ const quizNext=document.getElementById("quizNext");
+ quizNext.disabled=true;
+ quizNext.textContent=quizIndex===questions.length-1?
+  "See My Result →":"Next Question →";
 
-    return;
-
-  }
-
-
-  const q =
-  questions[
-    quizIndex
-  ];
-
-
-  document
-    .getElementById(
-      'quizScore'
-    )
-    .textContent =
-    `Score: ${correct} / ${quizIndex}`;
-
-
-  document
-    .getElementById(
-      'questionText'
-    )
-    .textContent =
-    q.text;
-
-
-  const options =
-  document.getElementById(
-    'options'
-  );
-
-
-  options.innerHTML =
-  '';
-
-
-  const feedback =
-  document.getElementById(
-    'feedback'
-  );
-
-
-  feedback.className =
-  'feedback';
-
-
-  feedback.innerHTML =
-  '';
-
-
-  const quizNext =
-  document.getElementById(
-    'quizNext'
-  );
-
-
-  quizNext.disabled =
-  true;
-
-
-  quizNext.textContent =
-  (
-    quizIndex ===
-    questions.length - 1
-  )
-    ?
-    'See my result →'
-    :
-    'Next question →';
-
-
-  q.options.forEach(
-    (text,i) => {
-
-
-      const button =
-      document.createElement(
-        'button'
-      );
-
-
-      button.type =
-      'button';
-
-
-      button.className =
-      'option';
-
-
-      button.textContent =
-      text;
-
-
-      button.addEventListener(
-        'click',
-        () => {
-
-          answerQuestion(
-            i
-          );
-
-        }
-      );
-
-
-      options.appendChild(
-        button
-      );
-
-    }
-  );
-
+ q.options.forEach((option,i)=>{
+  const b=document.createElement("button");
+  b.type="button";
+  b.className="option";
+  b.textContent=option;
+  b.addEventListener("click",()=>answerQuestion(i));
+  options.appendChild(b);
+ });
 }
-
-
-/* =========================================================
-   ANSWER QUESTION
-   ========================================================= */
 
 function answerQuestion(choice){
+ if(answered)return;
+ answered=true;
+ const q=questions[quizIndex];
+ const buttons=[...document.querySelectorAll("#options .option")];
+ buttons.forEach((b,i)=>{
+  b.disabled=true;
+  if(i===q.answer)b.classList.add("correct");
+ });
 
-  if(
-    answers[
-      quizIndex
-    ] !== null
-  ){
+ const feedback=document.getElementById("feedback");
+ if(choice===q.answer){
+  correct++;
+  feedback.className="feedback show ok";
+  feedback.textContent="Correct. "+q.explanation;
+ }else{
+  buttons[choice].classList.add("wrong");
+  feedback.className="feedback show bad";
+  feedback.textContent="Not quite. "+q.explanation;
+ }
 
-    return;
-
-  }
-
-
-  const q =
-  questions[
-    quizIndex
-  ];
-
-
-  answers[
-    quizIndex
-  ] =
-  choice;
-
-
-  const buttons =
-  [
-    ...document
-      .querySelectorAll(
-        '#options .option'
-      )
-  ];
-
-
-  buttons.forEach(
-    (button,i) => {
-
-      button.disabled =
-      true;
-
-
-      if(
-        i === q.answer
-      ){
-
-        button
-          .classList
-          .add(
-            'correct'
-          );
-
-      }
-
-    }
-  );
-
-
-  const feedback =
-  document.getElementById(
-    'feedback'
-  );
-
-
-  if(
-    choice === q.answer
-  ){
-
-    correct++;
-
-
-    feedback.className =
-    'feedback show ok';
-
-
-    feedback.innerHTML =
-    `<b>Correct.</b> ${q.explanation}`;
-
-  }
-
-  else{
-
-    buttons[
-      choice
-    ]
-      .classList
-      .add(
-        'wrong'
-      );
-
-
-    feedback.className =
-    'feedback show bad';
-
-
-    feedback.innerHTML =
-    `<b>Not quite.</b> ${q.explanation}`;
-
-  }
-
-
-  document
-    .getElementById(
-      'quizScore'
-    )
-    .textContent =
-    `Score: ${correct} / ${quizIndex + 1}`;
-
-
-  document
-    .getElementById(
-      'quizNext'
-    )
-    .disabled =
-    false;
-
+ document.getElementById("quizScore").textContent=
+  `Score: ${correct} / ${quizIndex+1}`;
+ document.getElementById("quizNext").disabled=false;
 }
 
-
-/* =========================================================
-   NEXT QUESTION
-   ========================================================= */
-
-document
-.getElementById(
-  'quizNext'
-)
-.addEventListener(
-  'click',
-  () => {
-
-    if(
-      answers[
-        quizIndex
-      ] === null
-    ){
-
-      return;
-
-    }
-
-
-    quizIndex++;
-
-
-    if(
-      quizIndex >=
-      questions.length
-    ){
-
-      showScreen(4);
-
-    }
-
-    else{
-
-      count.textContent =
-      `Question ${quizIndex + 1} / ${questions.length}`;
-
-
-      renderQuestion();
-
-
-      window.scrollTo({
-        top:0,
-        behavior:'smooth'
-      });
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   SCORE
-   ========================================================= */
-
-function scorePercent(){
-
-  return Math.round(
-    (
-      correct /
-      questions.length
-    )
-    * 100
-  );
-
-}
-
-
-/* =========================================================
-   TRACKING
-   ========================================================= */
-
-function sendCompletionRecord(
-  percent
-){
-
-  if(
-    completionSubmitted
-  ){
-
-    return;
-
-  }
-
-
-  const form =
-  document.getElementById(
-    'trackingForm'
-  );
-
-
-  document
-    .getElementById(
-      'trackName'
-    )
-    .value =
-    learnerName
-      .value
-      .trim();
-
-
-  document
-    .getElementById(
-      'trackModule'
-    )
-    .value =
-    MODULE;
-
-
-  document
-    .getElementById(
-      'trackScore'
-    )
-    .value =
-    percent + '%';
-
-
-  document
-    .getElementById(
-      'trackStatus'
-    )
-    .value =
-    'Completed';
-
-
-  form.action =
-  TRACKING_URL;
-
-
-  const recordStatus =
-  document.getElementById(
-    'recordStatus'
-  );
-
-
-  recordStatus.innerHTML =
-  `
-    <b>Submitting completion record...</b><br>
-    Your signed-in Numerator account will be used for verification.
-  `;
-
-
-  try{
-
-    form.submit();
-
-
-    completionSubmitted =
-    true;
-
-
-    setTimeout(
-      () => {
-
-        recordStatus.innerHTML =
-        `
-          <b>Completion submitted.</b><br>
-          Your result has been sent to the microlearning tracking system.
-        `;
-
-      },
-      1200
-    );
-
-  }
-
-  catch(error){
-
-    console.error(
-      'Tracking error:',
-      error
-    );
-
-
-    recordStatus.innerHTML =
-    `
-      <b>Completion achieved.</b><br>
-      The tracking request could not be submitted.
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   RESULT
-   ========================================================= */
+document.getElementById("quizNext").addEventListener("click",()=>{
+ if(!answered)return;
+ quizIndex++;
+ if(quizIndex>=questions.length)showScreen(4);
+ else renderQuestion();
+});
 
 function renderResult(){
+ const percent=Math.round(correct/questions.length*100);
+ const passed=percent>=PASS;
 
-  const percent =
-  scorePercent();
+ document.getElementById("resultNumber").textContent=percent+"%";
+ document.getElementById("resultRing").style.setProperty(
+  "--angle",(percent*3.6)+"deg"
+ );
 
+ document.getElementById("resultTitle").textContent=
+  passed?"Learning Completed!":"Keep Practising";
 
-  const passed =
-  percent >=
-  PASS_PERCENT;
+ document.getElementById("resultText").textContent=
+  passed
+  ?"You demonstrated an understanding of RACI roles and how they support project ownership."
+  :"You need at least 85% to complete this module. Review the roles and retry.";
 
+ const certificate=document.getElementById("certificate");
+ certificate.classList.toggle("show",passed);
 
-  document
-    .getElementById(
-      'resultNumber'
-    )
-    .textContent =
-    percent + '%';
-
-
-  document
-    .getElementById(
-      'resultRing'
-    )
-    .style
-    .setProperty(
-      '--angle',
-      (
-        percent * 3.6
-      ) + 'deg'
-    );
-
-
-  document
-    .getElementById(
-      'correctCount'
-    )
-    .textContent =
-    `${correct} / ${questions.length} correct`;
-
-
-  if(passed){
-
-    document
-      .getElementById(
-        'resultTitle'
-      )
-      .textContent =
-      'Completed';
-
-
-    document
-      .getElementById(
-        'resultText'
-      )
-      .textContent =
-      'You demonstrated a strong understanding of how RACI clarifies ownership, decision-making and stakeholder involvement.';
-
-
-    document
-      .getElementById(
-        'certName'
-      )
-      .textContent =
-      learnerName
-        .value
-        .trim();
-
-
-    document
-      .getElementById(
-        'certScore'
-      )
-      .textContent =
-      `Score: ${percent}%`;
-
-
-    document
-      .getElementById(
-        'certDate'
-      )
-      .textContent =
-      `Completed on ${
-        new Date()
-          .toLocaleDateString(
-            'en-GB',
-            {
-              day:'2-digit',
-              month:'long',
-              year:'numeric'
-            }
-          )
-      }`;
-
-
-    document
-      .getElementById(
-        'certificate'
-      )
-      .classList
-      .add(
-        'show'
-      );
-
-
-    sendCompletionRecord(
-      percent
-    );
-
-  }
-
-  else{
-
-    document
-      .getElementById(
-        'resultTitle'
-      )
-      .textContent =
-      'Not completed yet';
-
-
-    document
-      .getElementById(
-        'resultText'
-      )
-      .textContent =
-      `You scored ${percent}%. You need at least 85% to complete this microlearning.`;
-
-
-    document
-      .getElementById(
-        'certificate'
-      )
-      .classList
-      .remove(
-        'show'
-      );
-
-
-    document
-      .getElementById(
-        'recordStatus'
-      )
-      .innerHTML =
-      `
-        <b>No completion record submitted.</b><br>
-        Review the RACI roles and retry the knowledge check.
-      `;
-
-  }
-
+ if(passed){
+  document.getElementById("certName").textContent=
+   document.getElementById("learnerName").value.trim()||"Learner";
+  document.getElementById("certScore").textContent=
+   `Assessment Score: ${percent}%`;
+  document.getElementById("certDate").textContent=
+   "Completed on "+new Date().toLocaleDateString("en-GB",{
+    day:"2-digit",month:"long",year:"numeric"
+   });
+ }
 }
 
+document.getElementById("retry").addEventListener("click",()=>{
+ quizIndex=0;correct=0;answered=false;
+ showScreen(3);
+});
 
-/* =========================================================
-   RETRY
-   ========================================================= */
-
-document
-.getElementById(
-  'retry'
-)
-.addEventListener(
-  'click',
-  () => {
-
-    quizIndex =
-    0;
-
-
-    correct =
-    0;
-
-
-    answers =
-    Array(
-      questions.length
-    ).fill(null);
-
-
-    document
-      .getElementById(
-        'certificate'
-      )
-      .classList
-      .remove(
-        'show'
-      );
-
-
-    showScreen(3);
-
-  }
-);
-
-
-/* =========================================================
-   PRINT
-   ========================================================= */
-
-document
-.getElementById(
-  'printBtn'
-)
-.addEventListener(
-  'click',
-  () => {
-
-    window.print();
-
-  }
-);
-
-
-/* =========================================================
-   INITIALIZE
-   ========================================================= */
+document.getElementById("printBtn").addEventListener("click",()=>{
+ window.print();
+});
 
 showScreen(0);
-
+})();
 </script>
-
 </body>
 </html>
