@@ -1,3733 +1,946 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ADKAR — A Human Guide to Change</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17263d">
+<title>ADKAR | Roma Learning Studio</title>
 <style>
 :root{
-  --ink:#173238;
-  --muted:#61747a;
-  --paper:#fffdf8;
-  --page:#f4f0e8;
-  --line:#d8dfdc;
-
-  --teal:#0b7b73;
-  --deep:#075c56;
-
-  --awareness:#e9858a;
-  --desire:#e5bf4e;
-  --knowledge:#58b7b3;
-  --ability:#7f95bd;
-  --reinforcement:#a69ac8;
+ --navy:#17263d;--teal:#147d83;--gold:#d9a65b;
+ --bg:#f5f7fa;--muted:#64748b;--line:#e1e7ee;
+ --paper:#fffdf8;
 }
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  margin:0;
-  background:var(--page);
-  color:var(--ink);
-  font-family:Arial,Helvetica,sans-serif;
+ margin:0;background:var(--bg);color:var(--navy);
+ font-family:Inter,"Segoe UI",Arial,sans-serif;
 }
-
-button,
-input{
-  font:inherit;
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.4;cursor:not-allowed}
+button:focus-visible,a:focus-visible,input:focus-visible{
+ outline:3px solid var(--gold);outline-offset:3px;
 }
-
-
-/* =========================================================
-   SHELL
-   ========================================================= */
-
 .shell{
-  width:min(1180px,calc(100% - 28px));
-  margin:24px auto;
-  background:#fff;
-  border-radius:26px;
-  overflow:hidden;
-  box-shadow:0 20px 60px rgba(20,54,62,.10);
-  position:relative;
+ max-width:1180px;margin:24px auto;background:white;
+ border-radius:24px;overflow:hidden;
+ box-shadow:0 18px 55px #17263d14;
 }
-
 .topline{
-  height:8px;
-  background:linear-gradient(
-    90deg,
-    var(--teal),
-    #72b986
-  );
+ height:7px;
+ background:linear-gradient(90deg,var(--navy),var(--teal));
 }
-
 .header{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:18px 28px;
-  border-bottom:1px solid var(--line);
+ display:flex;align-items:center;gap:18px;
+ padding:19px 28px;border-bottom:1px solid var(--line);
 }
-
 .brand{
-  font-size:13px;
-  font-weight:900;
-  letter-spacing:.11em;
-  color:var(--teal);
-  white-space:nowrap;
+ font-size:12px;font-weight:900;letter-spacing:1px;
+ white-space:nowrap;
 }
-
 .progress{
-  flex:1;
-  height:7px;
-  border-radius:999px;
-  background:#e8efed;
-  overflow:hidden;
+ flex:1;height:7px;background:#e8eff2;
+ border-radius:20px;overflow:hidden;
 }
-
-.progress > i{
-  display:block;
-  height:100%;
-  width:0;
-  background:linear-gradient(
-    90deg,
-    var(--teal),
-    #72b986
-  );
-  transition:width .35s ease;
+.progress i{
+ display:block;height:100%;width:0;
+ background:var(--teal);transition:width .3s;
 }
-
-.count{
-  min-width:90px;
-  text-align:right;
-  color:var(--muted);
-  font-size:12px;
-  font-weight:800;
+.counter{font-size:12px;color:var(--muted)}
+main{padding:42px 46px 55px;min-height:480px}
+.screen{display:none}
+.screen.active{display:block;animation:fade .3s ease}
+@keyframes fade{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:none}
 }
-
-main{
-  padding:38px 46px 104px;
-}
-
-.screen{
-  display:none;
-  animation:fadeIn .28s ease;
-}
-
-.screen.active{
-  display:block;
-}
-
-@keyframes fadeIn{
-  from{
-    opacity:0;
-    transform:translateY(7px);
-  }
-
-  to{
-    opacity:1;
-    transform:none;
-  }
-}
-
-
-/* =========================================================
-   TYPOGRAPHY
-   ========================================================= */
-
 .eyebrow{
-  font-size:12px;
-  font-weight:900;
-  color:var(--teal);
-  text-transform:uppercase;
-  letter-spacing:.11em;
+ color:var(--teal);font-size:12px;font-weight:850;
+ text-transform:uppercase;letter-spacing:1.4px;
 }
-
 h1{
-  margin:8px 0 16px;
-  font-size:clamp(44px,6vw,72px);
-  line-height:1.02;
-  letter-spacing:-.04em;
+ font-size:clamp(39px,5vw,63px);
+ letter-spacing:-1.8px;line-height:1.06;
+ margin:13px 0 20px;
 }
-
 h2{
-  margin:6px 0 12px;
-  font-size:clamp(30px,4vw,44px);
-  line-height:1.08;
+ font-size:clamp(29px,4vw,42px);
+ letter-spacing:-1px;margin:12px 0 17px;
 }
-
-p{
-  color:#42585f;
-  font-size:18px;
-  line-height:1.58;
-}
-
-.lead{
-  font-size:21px;
-  max-width:760px;
-}
-
-
-/* =========================================================
-   INTRO
-   ========================================================= */
-
-.intro-grid{
-  display:grid;
-  grid-template-columns:
-    minmax(0,1.05fr)
-    minmax(320px,.95fr);
-  gap:38px;
-  align-items:center;
-}
-
-.pills{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin:18px 0 22px;
-}
-
+h3{margin:0}
+p{font-size:17px;line-height:1.7;color:#4a5c70}
+.lead{font-size:20px}
 .pill{
-  padding:8px 12px;
-  border-radius:999px;
-  background:#eef6f3;
-  color:var(--deep);
-  font-size:13px;
-  font-weight:850;
+ display:inline-block;padding:9px 13px;
+ background:#eaf5f4;color:var(--teal);
+ border-radius:25px;font-size:13px;font-weight:800;
+ margin:6px 6px 0 0;
 }
-
-.identity{
-  margin-top:22px;
-  padding:18px;
-  border:1px solid var(--line);
-  border-radius:17px;
-  background:#fafcfb;
-  max-width:640px;
+.intro{
+ display:grid;grid-template-columns:1.1fr .9fr;
+ gap:35px;align-items:center;
 }
-
-.identity label{
-  display:block;
-  margin-bottom:8px;
-  color:var(--deep);
-  font-size:13px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-}
-
-.identity input{
-  width:100%;
-  padding:13px 14px;
-  border:1px solid #cad9d4;
-  border-radius:12px;
-  font-size:16px;
-  outline:none;
-}
-
-.identity input:focus{
-  border-color:var(--teal);
-  box-shadow:0 0 0 3px rgba(11,123,115,.12);
-}
-
-.identity small{
-  display:block;
-  margin-top:10px;
-  color:var(--muted);
-  line-height:1.45;
-}
-
-
-/* =========================================================
-   COVER ART
-   ========================================================= */
-
 .cover-art{
-  min-height:410px;
-  border:1px solid var(--line);
-  border-radius:30px;
-  background:linear-gradient(
-    145deg,
-    #f8f5ed,
-    #e9f4ef
-  );
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:28px;
+ min-height:370px;border-radius:25px;
+ background:linear-gradient(145deg,#eaf5f4,#f4f0e9);
+ display:grid;place-items:center;padding:35px;
 }
-
 .book-cover{
-  width:min(360px,100%);
-  aspect-ratio:4/5;
-  background:var(--paper);
-  border:1px solid #d4ddd9;
-  border-radius:8px 24px 24px 8px;
-  box-shadow:
-    18px 18px 0 #dce8e3,
-    0 22px 45px rgba(22,61,70,.13);
-  position:relative;
-  padding:34px 30px;
+ width:min(320px,100%);min-height:365px;
+ background:var(--paper);border:1px solid #d8dfdc;
+ border-radius:8px 22px 22px 8px;
+ box-shadow:14px 14px 0 #dce8e3,
+ 0 20px 40px #17263d20;
+ padding:35px 25px;
 }
-
-.book-cover::before{
-  content:"";
-  position:absolute;
-  left:18px;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:#d9dfdc;
-}
-
-.cover-sequence{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:6px;
-  margin:28px 0;
-}
-
-.cover-step{
-  height:82px;
-  border-radius:10px;
-  display:grid;
-  place-items:center;
-  color:#fff;
-  font-weight:950;
-  font-size:26px;
-}
-
 .cover-title{
-  font-size:38px;
-  font-weight:950;
-  line-height:1.02;
-  letter-spacing:-.03em;
-  margin-top:18px;
+ font-size:32px;font-weight:900;
+ letter-spacing:-1px;line-height:1.1;margin:22px 0;
 }
-
-.cover-sub{
-  color:var(--muted);
-  line-height:1.5;
-  margin-top:10px;
+.cover-letters{
+ display:grid;grid-template-columns:repeat(5,1fr);
+ gap:5px;margin:25px 0;
 }
-
-
-/* =========================================================
-   BOOK
-   ========================================================= */
-
+.cover-letters span{
+ min-width:0;min-height:65px;
+ display:grid;place-items:center;
+ border-radius:9px;color:white;
+ font-size:23px;font-weight:900;
+}
+.identity{
+ margin-top:25px;border:1px solid var(--line);
+ background:#fafcfd;padding:20px;border-radius:16px;
+}
+.identity label{
+ display:block;font-weight:800;margin-bottom:10px;
+}
+.identity input{
+ width:100%;padding:14px;border:1px solid #cad5df;
+ border-radius:10px;background:white;
+}
+.identity small{
+ display:block;margin-top:10px;
+ color:var(--muted);line-height:1.5;
+}
 .book-layout{
-  display:grid;
-  grid-template-columns:
-    minmax(0,1.35fr)
-    minmax(330px,.65fr);
-  gap:30px;
-  align-items:center;
-  margin-top:18px;
+ display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);
+ gap:28px;align-items:start;margin-top:25px;
 }
-
-.book-wrap{
-  position:relative;
-  min-width:0;
-  padding-left:72px;
+.book-wrap{min-width:0}
+.tabs{
+ display:flex;flex-wrap:wrap;gap:7px;
+ margin-bottom:15px;
 }
-
-.stage-tabs{
-  position:absolute;
-  left:0;
-  top:30px;
-  z-index:6;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+.tab{
+ flex:1 1 85px;min-height:58px;
+ border:1px solid var(--line);
+ border-radius:11px;background:#edf1f4;
+ color:#526276;padding:8px;
+ font-size:12px;font-weight:800;
 }
-
-.stage-tab{
-  width:82px;
-  min-height:62px;
-  border:0;
-  border-radius:12px 0 0 12px;
-  background:#d5dbdd;
-  color:#5d696d;
-  cursor:pointer;
-  text-align:left;
-  padding:10px 9px;
-  box-shadow:0 5px 12px rgba(0,0,0,.07);
-  transition:
-    transform .2s ease,
-    background .2s ease,
-    color .2s ease;
-}
-
-.stage-tab strong{
-  display:block;
-  font-size:23px;
-  line-height:1;
-}
-
-.stage-tab span{
-  display:block;
-  font-size:10px;
-  font-weight:800;
-  line-height:1.1;
-  margin-top:5px;
-}
-
-.stage-tab.active{
-  color:#fff;
-  transform:translateX(-8px);
-}
-
-.stage-tab.done::after{
-  content:" ✓";
-  font-size:11px;
-}
-
+.tab b{display:block;font-size:20px}
+.tab.active{color:white;border-color:transparent}
 .book{
-  position:relative;
-  min-height:570px;
-  perspective:1600px;
+ perspective:1400px;min-width:0;
 }
-
 .book-page{
-  position:relative;
-  min-height:570px;
-  background:var(--paper);
-  border:1px solid #d8dfdc;
-  border-radius:12px 28px 28px 12px;
-  box-shadow:0 18px 46px rgba(18,60,53,.12);
-  padding:44px 48px 44px 58px;
-  overflow:hidden;
-  transform-origin:left center;
-  backface-visibility:hidden;
+ background:var(--paper);
+ border:1px solid #d8dfdc;
+ border-radius:12px 25px 25px 12px;
+ box-shadow:0 15px 35px #17263d15;
+ padding:32px;
+ min-height:470px;
+ transform-origin:left center;
+ overflow-wrap:anywhere;
 }
-
-.book-page::before{
-  content:"";
-  position:absolute;
-  left:22px;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:#e2e5e3;
-}
-
-.book-page::after{
-  content:"";
-  position:absolute;
-  right:0;
-  top:0;
-  bottom:0;
-  width:12px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(36,67,65,.06)
-  );
-}
-
 .book-page.turning{
-  animation:pageTurn .62s ease;
+ animation:turn .6s ease;
 }
-
-@keyframes pageTurn{
-  0%{
-    transform:rotateY(0deg);
-    opacity:1;
-  }
-
-  48%{
-    transform:rotateY(-82deg);
-    opacity:.45;
-  }
-
-  52%{
-    transform:rotateY(-82deg);
-    opacity:.45;
-  }
-
-  100%{
-    transform:rotateY(0deg);
-    opacity:1;
-  }
+@keyframes turn{
+ 0%{transform:rotateY(0);opacity:1}
+ 48%{transform:rotateY(-65deg);opacity:.5}
+ 52%{transform:rotateY(-65deg);opacity:.5}
+ 100%{transform:rotateY(0);opacity:1}
 }
-
-.page-kicker{
-  display:flex;
-  align-items:center;
-  gap:12px;
+.page-head{
+ display:flex;align-items:center;gap:13px;
 }
-
 .page-letter{
-  width:52px;
-  height:52px;
-  border-radius:14px;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:26px;
-  font-weight:950;
+ width:55px;height:55px;border-radius:13px;
+ display:grid;place-items:center;
+ font-size:26px;font-weight:900;color:white;
+ flex-shrink:0;
 }
-
-.page-step{
-  color:var(--muted);
-  font-size:12px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-.page-question{
-  font-size:15px;
-  color:var(--teal);
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-  margin-top:4px;
-}
-
 .page-title{
-  font-size:48px;
-  margin:18px 0 10px;
-  line-height:1;
+ font-size:clamp(30px,4vw,43px);
+ letter-spacing:-1px;margin:20px 0 10px;
+ overflow-wrap:anywhere;
 }
-
-.page-purpose{
-  margin:0 0 22px;
-  font-size:19px;
-}
-
+.page-purpose{margin:0 0 20px}
 .page-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
+ display:grid;grid-template-columns:1fr 1fr;gap:12px;
 }
-
 .page-box{
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:16px;
-  background:#fff;
+ border:1px solid var(--line);border-radius:14px;
+ padding:16px;background:white;
+ min-width:0;
 }
-
-.page-box.full{
-  grid-column:1/-1;
-}
-
+.page-box.full{grid-column:1/-1}
 .page-box h4{
-  margin:0 0 8px;
-  color:var(--deep);
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.06em;
+ color:var(--teal);font-size:12px;
+ text-transform:uppercase;letter-spacing:.7px;
+ margin:0 0 9px;
 }
-
+.page-box p{font-size:14px;margin:0}
 .page-box ul{
-  margin:0;
-  padding-left:20px;
-  color:#41565c;
-  line-height:1.52;
+ padding-left:19px;margin:0;
+ font-size:14px;color:#4a5c70;line-height:1.6;
 }
-
-.page-box p{
-  margin:0;
-  font-size:15px;
-  line-height:1.52;
+.side-card{
+ border:1px solid var(--line);border-radius:20px;
+ background:#f8fbfc;padding:23px;
 }
-
-
-/* =========================================================
-   SIDE PANEL
-   ========================================================= */
-
-.stage-side .side-card{
-  border:1px solid var(--line);
-  border-radius:22px;
-  background:#fbfcfb;
-  padding:22px;
+.side-card h3{font-size:25px;margin:12px 0}
+.side-card p{font-size:15px}
+.sequence{
+ display:flex;gap:7px;flex-wrap:wrap;margin:20px 0;
 }
-
-.stage-side h3{
-  margin:0 0 8px;
-  font-size:23px;
+.sequence span{
+ width:38px;height:38px;display:grid;
+ place-items:center;border-radius:9px;
+ background:#e2e8ed;color:#526276;
+ font-weight:900;
 }
-
-.stage-side p{
-  margin:0;
-  font-size:15px;
-}
-
-.side-sequence{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-top:18px;
-}
-
-.seq{
-  min-width:46px;
-  padding:9px 10px;
-  border-radius:10px;
-  background:#e3e8e8;
-  color:#657175;
-  text-align:center;
-  font-weight:900;
-  font-size:13px;
-}
-
-.seq.active{
-  color:#fff;
-}
-
+.sequence span.active{color:white}
 .stage-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:18px;
+ display:flex;gap:9px;flex-wrap:wrap;
+ margin-top:20px;
 }
-
-.stage-actions button{
-  min-height:44px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  background:#fff;
-  color:var(--ink);
-  padding:11px 16px;
-  font-weight:850;
-  cursor:pointer;
+.stage-actions button,.action{
+ border:1px solid var(--line);border-radius:11px;
+ padding:12px 16px;background:white;
+ color:var(--navy);font-weight:800;
 }
-
-.stage-actions .primary{
-  background:var(--teal);
-  border-color:var(--teal);
-  color:#fff;
+.stage-actions .primary,.action{
+ background:var(--navy);color:white;border:0;
 }
-
-
-/* =========================================================
-   TRAINING VS CHANGE
-   ========================================================= */
-
 .distinction{
-  max-width:900px;
-  margin:0 auto;
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:34px;
-  background:linear-gradient(
-    145deg,
-    #fbfcfb,
-    #eff6f2
-  );
+ max-width:880px;margin:auto;
+ background:#f8fbfc;border:1px solid var(--line);
+ border-radius:23px;padding:30px;
 }
-
-.distinction-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  margin-top:22px;
+.dist-grid{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:15px;margin-top:22px;
 }
-
 .dist-card{
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:20px;
-  background:#fff;
+ background:white;border:1px solid var(--line);
+ border-radius:15px;padding:20px;
 }
-
-.dist-card strong{
-  color:var(--teal);
-}
-
-
-/* =========================================================
-   QUIZ
-   ========================================================= */
-
-.quiz-wrap{
-  max-width:900px;
-  margin:0 auto;
-}
-
+.dist-card strong{color:var(--teal)}
+.quiz-wrap{max-width:880px;margin:auto}
 .quiz-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-  margin-bottom:18px;
+ display:flex;justify-content:space-between;
+ align-items:center;gap:15px;
 }
-
-.quiz-score{
-  padding:8px 11px;
-  border-radius:999px;
-  background:#eef6f3;
-  color:var(--deep);
-  font-size:13px;
-  font-weight:900;
+.score-chip{
+ background:#eaf5f4;color:var(--teal);
+ padding:9px 13px;border-radius:25px;
+ font-size:13px;font-weight:850;
 }
-
 .scenario{
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:22px;
-  background:#fbfcfb;
-  margin:18px 0;
+ background:#f8fbfc;border:1px solid var(--line);
+ border-radius:20px;padding:24px;margin:22px 0;
 }
-
 .scenario p{
-  margin:0;
-  font-size:20px;
-  color:var(--ink);
+ color:var(--navy);font-size:19px;margin:0;
 }
-
-.options{
-  margin-top:18px;
-}
-
 .option{
-  width:100%;
-  text-align:left;
-  border:1px solid var(--line);
-  background:#fff;
-  padding:14px 16px;
-  border-radius:14px;
-  margin:9px 0;
-  cursor:pointer;
-  color:var(--ink);
+ width:100%;text-align:left;padding:15px 17px;
+ margin:9px 0;border:1px solid var(--line);
+ border-radius:12px;background:white;
+ color:var(--navy);line-height:1.5;
 }
-
-.option:hover:not(:disabled){
-  border-color:var(--teal);
-}
-
+.option:hover:not(:disabled){border-color:var(--teal)}
 .option.correct{
-  background:#edf8f1;
-  border-color:#65ad81;
+ background:#eaf8ef;border-color:#66ad84;
 }
-
 .option.wrong{
-  background:#fff1ef;
-  border-color:#d59280;
+ background:#fff0ef;border-color:#d38c83;
 }
-
-.option:disabled{
-  cursor:default;
-}
-
 .feedback{
-  display:none;
-  margin-top:16px;
-  padding:14px 16px;
-  border-radius:14px;
-  line-height:1.5;
+ display:none;margin-top:18px;padding:16px;
+ border-radius:12px;line-height:1.6;
 }
-
-.feedback.show{
-  display:block;
-}
-
-.feedback.ok{
-  background:#eef8f2;
-  color:#2b624a;
-  border:1px solid #cee6d8;
-}
-
-.feedback.bad{
-  background:#fff3f1;
-  color:#7c3e36;
-  border:1px solid #ecd1ca;
-}
-
-.quiz-next{
-  display:flex;
-  justify-content:flex-end;
-  margin-top:18px;
-}
-
-.quiz-next button{
-  min-height:44px;
-  border:0;
-  border-radius:12px;
-  padding:12px 18px;
-  background:var(--teal);
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.quiz-next button:disabled{
-  opacity:.4;
-  cursor:not-allowed;
-}
-
-
-/* =========================================================
-   RESULT
-   ========================================================= */
-
+.feedback.show{display:block}
+.feedback.ok{background:#eaf8ef;color:#216145}
+.feedback.bad{background:#fff0ef;color:#8a3835}
+.quiz-next{text-align:right;margin-top:20px}
 .result-card{
-  max-width:760px;
-  margin:0 auto;
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:34px;
-  background:linear-gradient(
-    145deg,
-    #fbfcfb,
-    #f0f6f3
-  );
-  text-align:center;
+ max-width:760px;margin:auto;text-align:center;
+ background:#f8fbfc;border:1px solid var(--line);
+ border-radius:24px;padding:35px 24px;
 }
-
 .result-ring{
-  width:154px;
-  height:154px;
-  margin:8px auto 18px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:conic-gradient(
-    var(--teal)
-    var(--score-angle),
-    #e4ece9 0
-  );
-  position:relative;
+ --angle:0deg;width:155px;height:155px;
+ border-radius:50%;margin:20px auto;
+ background:conic-gradient(var(--teal) var(--angle),#e1e9ed 0);
+ display:grid;place-items:center;position:relative;
 }
-
-.result-ring::after{
-  content:"";
-  position:absolute;
-  inset:14px;
-  border-radius:50%;
-  background:#fff;
+.result-ring:before{
+ content:"";position:absolute;inset:14px;
+ background:white;border-radius:50%;
 }
-
-.result-number{
-  position:relative;
-  z-index:1;
-  font-size:38px;
-  font-weight:950;
-}
-
-.result-meta{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:18px;
-}
-
-.meta-chip{
-  padding:9px 12px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:#fff;
-  color:#526369;
-  font-size:13px;
-  font-weight:850;
-}
-
-
-/* =========================================================
-   TRACKING STATUS
-   ========================================================= */
-
-.statusbox{
-  margin:22px auto 0;
-  padding:14px 16px;
-  border:1px solid #cfe0da;
-  border-radius:14px;
-  background:#f5faf8;
-  color:#46615a;
-  font-size:14px;
-  line-height:1.5;
-  max-width:620px;
-  min-height:48px;
-}
-
-
-/* =========================================================
-   CERTIFICATE
-   ========================================================= */
-
+.result-ring strong{position:relative;font-size:38px}
 .certificate{
-  display:none;
-  margin-top:26px;
-  border:2px solid var(--teal);
-  border-radius:24px;
-  padding:34px;
-  background:#fff;
-  position:relative;
-  overflow:hidden;
+ display:none;margin:25px auto;
+ background:white;border:2px solid var(--teal);
+ border-radius:20px;padding:35px 25px;
 }
-
-.certificate.show{
-  display:block;
-}
-
-.certificate::before{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  top:0;
-  height:8px;
-  background:linear-gradient(
-    90deg,
-    var(--teal),
-    #72b986
-  );
-}
-
-.cert-small{
-  margin-top:6px;
-  color:var(--teal);
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:.11em;
-  text-transform:uppercase;
-}
-
+.certificate.show{display:block}
 .cert-name{
-  font-size:32px;
-  font-weight:950;
-  margin:12px 0;
+ font-size:32px;font-weight:900;color:var(--teal);
+ margin:17px 0;overflow-wrap:anywhere;
 }
-
-.cert-module{
-  font-size:26px;
-  color:var(--deep);
-  font-weight:900;
-  margin:8px 0 18px;
+.cert-meta{color:var(--muted);font-size:14px}
+.nav{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:12px;padding:17px 28px;
+ border-top:1px solid var(--line);
 }
-
-.cert-copy{
-  color:#526369;
-  line-height:1.55;
-  font-size:16px;
+.nav button{
+ border:0;border-radius:11px;padding:13px 19px;
+ font-weight:800;
 }
-
-.cert-footer{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:18px;
+.back{background:#eaf0f4;color:var(--navy)}
+.next{background:var(--navy);color:white}
+.footer{
+ text-align:center;border-top:1px solid var(--line);
+ padding:20px;color:var(--muted);font-size:12px;
+ line-height:1.7;
 }
-
-.cert-print,
-.retry{
-  margin-top:18px;
-  border:0;
-  border-radius:12px;
-  padding:12px 18px;
-  background:var(--teal);
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
+.footer a{
+ color:var(--teal);font-weight:800;text-decoration:none;
 }
-
-
-/* =========================================================
-   BOTTOM NAV
-   ========================================================= */
-
-.bottom-nav{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:15px 28px;
-  border-top:1px solid var(--line);
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(8px);
-}
-
-.nav-btn{
-  min-height:44px;
-  border:0;
-  border-radius:12px;
-  padding:11px 17px;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.nav-back{
-  background:#edf1f1;
-  color:#536266;
-}
-
-.nav-next{
-  background:var(--teal);
-  color:#fff;
-}
-
-.nav-btn:disabled{
-  opacity:.4;
-  cursor:not-allowed;
-}
-
-.time{
-  color:var(--muted);
-  font-size:13px;
-  text-align:center;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
 @media(max-width:900px){
-
-  main{
-    padding:34px 28px 104px;
-  }
-
-  .intro-grid,
-  .book-layout,
-  .distinction-grid{
-    grid-template-columns:1fr;
-  }
-
-  .cover-art{
-    min-height:330px;
-  }
-
-  .book-wrap{
-    padding-left:0;
-    padding-top:72px;
-  }
-
-  .stage-tabs{
-    top:0;
-    left:0;
-    right:0;
-    flex-direction:row;
-    justify-content:center;
-    flex-wrap:wrap;
-  }
-
-  .stage-tab{
-    width:auto;
-    min-width:72px;
-    border-radius:10px 10px 0 0;
-    text-align:center;
-  }
-
-  .stage-tab.active{
-    transform:translateY(-6px);
-  }
-
+ .intro,.book-layout{grid-template-columns:1fr}
+ .cover-art{min-height:300px}
 }
-
-
-@media(max-width:620px){
-
-  .shell{
-    width:100%;
-    margin:0;
-    border-radius:0;
-    min-height:100vh;
-  }
-
-  .header{
-    padding:15px 18px;
-  }
-
-  .brand{
-    font-size:11px;
-  }
-
-  .count{
-    min-width:65px;
-  }
-
-  main{
-    padding:28px 18px 104px;
-  }
-
-  .book-page{
-    padding:34px 22px 34px 34px;
-  }
-
-  .page-grid{
-    grid-template-columns:1fr;
-  }
-
-  .page-box.full{
-    grid-column:auto;
-  }
-
-  .page-title{
-    font-size:38px;
-  }
-
-  .time{
-    display:none;
-  }
-
-  .result-card{
-    padding:26px 18px;
-  }
-
+@media(max-width:600px){
+ .shell{margin:0;border-radius:0}
+ main{padding:28px 18px 45px}
+ .header{padding:15px;gap:10px}
+ .brand{font-size:10px}
+ .counter{font-size:10px}
+ .book-page{padding:22px;min-height:0}
+ .page-grid,.dist-grid{grid-template-columns:1fr}
+ .page-box.full{grid-column:auto}
+ .distinction{padding:20px}
+ .tab{flex-basis:75px}
+ .nav{padding:14px}
+ .cover-art{padding:20px}
+ .cover-title{font-size:27px}
 }
-
-
-@media(prefers-reduced-motion:reduce){
-
-  *{
-    animation:none!important;
-    transition:none!important;
-    scroll-behavior:auto!important;
-  }
-
-}
-
-
 @media print{
-
-  body *{
-    visibility:hidden!important;
-  }
-
-  #certificate,
-  #certificate *{
-    visibility:visible!important;
-  }
-
-  #certificate{
-    display:block!important;
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    max-width:none;
-    margin:0;
-    border-radius:0;
-  }
-
-  #certPrintBtn{
-    display:none!important;
-  }
-
+ @page{size:A4 landscape;margin:12mm}
+ body *{visibility:hidden!important}
+ #certificate,#certificate *{visibility:visible!important}
+ #certificate{
+  display:block!important;position:absolute;
+  left:0;top:0;width:100%;margin:0;
+ }
+ #printBtn{display:none!important}
 }
-
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{
+  animation:none!important;transition:none!important;
+  scroll-behavior:auto!important;
+ }
+}
 </style>
 </head>
-
-
 <body>
-
 <div class="shell">
-
-  <div class="topline"></div>
-
-
-  <div class="header">
-
-    <div class="brand">
-      5-MINUTE LEARNING
-    </div>
-
-    <div class="progress">
-      <i id="progressBar"></i>
-    </div>
-
-    <div
-      class="count"
-      id="headerCount"
-    >
-      Start
-    </div>
-
-  </div>
-
-
-  <main>
-
-
-    <!-- =====================================================
-         INTRO
-         ===================================================== -->
-
-    <section
-      class="screen active"
-      id="introScreen"
-    >
-
-      <div class="intro-grid">
-
-
-        <div>
-
-          <div class="eyebrow">
-            Change management • Interactive microlearning
-          </div>
-
-          <h1>
-            ADKAR
-          </h1>
-
-          <p class="lead">
-            A guided journey through the five human needs
-            that help people move through change:
-            Awareness, Desire, Knowledge, Ability and Reinforcement.
-          </p>
-
-
-          <div class="pills">
-
-            <span class="pill">
-              ~5 minutes
-            </span>
-
-            <span class="pill">
-              Interactive book
-            </span>
-
-            <span class="pill">
-              5 stages
-            </span>
-
-            <span class="pill">
-              7 workplace scenarios
-            </span>
-
-            <span class="pill">
-              85% to complete
-            </span>
-
-          </div>
-
-
-          <div class="identity">
-
-            <label for="learnerName">
-              Your name
-            </label>
-
-            <input
-              id="learnerName"
-              type="text"
-              autocomplete="name"
-              placeholder="Enter your full name"
-            >
-
-            <small>
-              Your name will appear on your certificate.
-              Your signed-in Numerator account will be used
-              by the tracking system for the completion record.
-            </small>
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="cover-art"
-          aria-hidden="true"
-        >
-
-          <div class="book-cover">
-
-            <div class="eyebrow">
-              A human guide to change
-            </div>
-
-            <div class="cover-title">
-              One change.
-              <br>
-              Five human needs.
-            </div>
-
-
-            <div class="cover-sequence">
-
-              <div
-                class="cover-step"
-                style="background:var(--awareness)"
-              >
-                A
-              </div>
-
-              <div
-                class="cover-step"
-                style="background:var(--desire)"
-              >
-                D
-              </div>
-
-              <div
-                class="cover-step"
-                style="background:var(--knowledge)"
-              >
-                K
-              </div>
-
-              <div
-                class="cover-step"
-                style="background:var(--ability)"
-              >
-                A
-              </div>
-
-              <div
-                class="cover-step"
-                style="background:var(--reinforcement)"
-              >
-                R
-              </div>
-
-            </div>
-
-
-            <div class="cover-sub">
-              Awareness → Desire → Knowledge →
-              Ability → Reinforcement
-            </div>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         BOOK
-         ===================================================== -->
-
-    <section
-      class="screen"
-      id="bookScreen"
-    >
-
-      <div class="eyebrow">
-        The ADKAR journey
-      </div>
-
-      <h2>
-        Turn the page as the change progresses.
-      </h2>
-
-      <p>
-        Each bookmark represents one human need.
-        The active bookmark stays in colour while
-        the others remain muted for context.
-      </p>
-
-
-      <div class="book-layout">
-
-
-        <div class="book-wrap">
-
-
-          <div
-            class="stage-tabs"
-            id="stageTabs"
-          ></div>
-
-
-          <div class="book">
-
-            <article
-              class="book-page"
-              id="bookPage"
-            >
-
-              <div class="page-kicker">
-
-                <div
-                  class="page-letter"
-                  id="pageLetter"
-                >
-                  A
-                </div>
-
-                <div>
-
-                  <div
-                    class="page-step"
-                    id="pageStep"
-                  >
-                    Stage 1 of 5
-                  </div>
-
-                  <div
-                    class="page-question"
-                    id="pageQuestion"
-                  >
-                    Why are we changing?
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <h3
-                class="page-title"
-                id="pageTitle"
-              >
-                Awareness
-              </h3>
-
-
-              <p
-                class="page-purpose"
-                id="pagePurpose"
-              ></p>
-
-
-              <div class="page-grid">
-
-                <div class="page-box">
-
-                  <h4>
-                    What helps
-                  </h4>
-
-                  <ul id="pageActions"></ul>
-
-                </div>
-
-
-                <div class="page-box">
-
-                  <h4>
-                    Stage outcome
-                  </h4>
-
-                  <p id="pageOutcome"></p>
-
-                </div>
-
-
-                <div class="page-box full">
-
-                  <h4>
-                    Workplace example
-                  </h4>
-
-                  <p id="pageExample"></p>
-
-                </div>
-
-              </div>
-
-            </article>
-
-          </div>
-
-        </div>
-
-
-        <aside class="stage-side">
-
-          <div class="side-card">
-
-            <div class="eyebrow">
-              Where you are
-            </div>
-
-            <h3 id="sideTitle">
-              Awareness
-            </h3>
-
-            <p id="sideCopy"></p>
-
-
-            <div
-              class="side-sequence"
-              id="sideSequence"
-            ></div>
-
-
-            <div class="stage-actions">
-
-              <button
-                type="button"
-                id="prevStageBtn"
-              >
-                ← Previous
-              </button>
-
-              <button
-                type="button"
-                class="primary"
-                id="nextStageBtn"
-              >
-                Next: Desire →
-              </button>
-
-            </div>
-
-          </div>
-
-        </aside>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         TRAINING VS CHANGE
-         ===================================================== -->
-
-    <section
-      class="screen"
-      id="distinctionScreen"
-    >
-
-      <div class="distinction">
-
-        <div class="eyebrow">
-          A useful distinction
-        </div>
-
-        <h2>
-          Training is only part of the change.
-        </h2>
-
-
-        <p>
-          Training typically supports
-          <strong>Knowledge</strong>
-          and
-          <strong>Ability</strong>.
-
-          People also need context and motivation
-          to engage with the change — and
-          reinforcement afterward to sustain it.
-        </p>
-
-
-        <div class="distinction-grid">
-
-          <div class="dist-card">
-
-            <strong>
-              Training can teach the how.
-            </strong>
-
-            <p>
-              It can build knowledge and create
-              opportunities to practise.
-            </p>
-
-          </div>
-
-
-          <div class="dist-card">
-
-            <strong>
-              Training cannot create the why.
-            </strong>
-
-            <p>
-              Awareness, Desire and Reinforcement
-              need communication, leadership,
-              involvement and follow-through.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         QUIZ
-         ===================================================== -->
-
-    <section
-      class="screen"
-      id="quizScreen"
-    >
-
-      <div class="quiz-wrap">
-
-
-        <div class="quiz-top">
-
-          <div>
-
-            <div class="eyebrow">
-              Knowledge check
-            </div>
-
-            <h2>
-              Can you diagnose the ADKAR barrier?
-            </h2>
-
-          </div>
-
-
-          <div
-            class="quiz-score"
-            id="quizScore"
-          >
-            Score: 0 / 0
-          </div>
-
-        </div>
-
-
-        <p>
-          Answer all seven workplace scenarios.
-          You need at least
-          <strong>6 out of 7</strong>
-          correct to complete the module.
-        </p>
-
-
-        <div class="scenario">
-
-          <p id="scenarioText"></p>
-
-        </div>
-
-
-        <div
-          class="options"
-          id="options"
-        ></div>
-
-
-        <div
-          class="feedback"
-          id="feedback"
-          aria-live="polite"
-        ></div>
-
-
-        <div class="quiz-next">
-
-          <button
-            type="button"
-            id="quizNextBtn"
-            disabled
-          >
-            Next question →
-          </button>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         RESULT
-         ===================================================== -->
-
-    <section
-      class="screen"
-      id="resultScreen"
-    >
-
-      <div class="result-card">
-
-
-        <div class="eyebrow">
-          Your result
-        </div>
-
-
-        <div
-          class="result-ring"
-          id="resultRing"
-          style="--score-angle:0deg"
-        >
-
-          <div
-            class="result-number"
-            id="resultNumber"
-          >
-            0%
-          </div>
-
-        </div>
-
-
-        <h2 id="resultTitle">
-          Result
-        </h2>
-
-
-        <p id="resultMessage"></p>
-
-
-        <div class="result-meta">
-
-          <div
-            class="meta-chip"
-            id="correctChip"
-          >
-            0 / 7 correct
-          </div>
-
-          <div class="meta-chip">
-            Pass mark: 85%
-          </div>
-
-          <div class="meta-chip">
-            6 / 7 required
-          </div>
-
-        </div>
-
-
-        <div
-          id="recordStatus"
-          class="statusbox"
-        >
-          Completion tracking status will appear here.
-        </div>
-
-
-        <!-- CERTIFICATE -->
-
-        <div
-          class="certificate"
-          id="certificate"
-        >
-
-          <div class="cert-small">
-            Certificate of Completion
-          </div>
-
-
-          <div class="cert-copy">
-            This certifies that
-          </div>
-
-
-          <div
-            class="cert-name"
-            id="certName"
-          ></div>
-
-
-          <div class="cert-copy">
-            has successfully completed the microlearning
-          </div>
-
-
-          <div class="cert-module">
-            ADKAR — A Human Guide to Change
-          </div>
-
-
-          <div class="cert-copy">
-            and demonstrated understanding
-            of the five ADKAR outcomes.
-          </div>
-
-
-          <div class="cert-footer">
-
-            <div
-              class="meta-chip"
-              id="certScore"
-            >
-              Score: —
-            </div>
-
-            <div
-              class="meta-chip"
-              id="certDate"
-            >
-              Completed on —
-            </div>
-
-          </div>
-
-
-          <button
-            type="button"
-            class="cert-print"
-            id="certPrintBtn"
-          >
-            Print / Save Certificate
-          </button>
-
-        </div>
-
-
-        <button
-          type="button"
-          class="retry"
-          id="retryBtn"
-        >
-          Retry knowledge check
-        </button>
-
-
-      </div>
-
-    </section>
-
-
-  </main>
-
-
-
-  <!-- =====================================================
-       BOTTOM NAVIGATION
-       ===================================================== -->
-
-  <div
-    class="bottom-nav"
-    id="bottomNav"
-  >
-
-    <button
-      type="button"
-      class="nav-btn nav-back"
-      id="backBtn"
-    >
-      ← Back
-    </button>
-
-
-    <div
-      class="time"
-      id="timeText"
-    >
-      Estimated time: 5 min
-    </div>
-
-
-    <button
-      type="button"
-      class="nav-btn nav-next"
-      id="nextBtn"
-    >
-      Start →
-    </button>
-
-  </div>
-
-
+<div class="topline"></div>
+<div class="header">
+ <div class="brand">ROMA / LEARNING STUDIO</div>
+ <div class="progress"><i id="progress"></i></div>
+ <div class="counter" id="counter">Start</div>
 </div>
 
+<main>
+<section class="screen active" id="intro">
+ <div class="intro">
+  <div>
+   <div class="eyebrow">Change Management</div>
+   <h1>ADKAR.</h1>
+   <p class="lead">One change. Five human needs.</p>
+   <p>
+    Explore how Awareness, Desire, Knowledge,
+    Ability and Reinforcement help people
+    navigate organizational change.
+   </p>
+   <span class="pill">5 minutes</span>
+   <span class="pill">Interactive book</span>
+   <span class="pill">7 workplace scenarios</span>
+   <div class="identity">
+    <label for="learnerName">Your name</label>
+    <input id="learnerName" autocomplete="name"
+           placeholder="Enter your name">
+    <small>
+     Optional. Used only for your local completion
+     certificate. No personal data or results are
+     submitted to a tracking system.
+    </small>
+   </div>
+  </div>
+  <div class="cover-art">
+   <div class="book-cover">
+    <div class="eyebrow">A Human Guide to Change</div>
+    <div class="cover-title">
+     One change.<br>Five human needs.
+    </div>
+    <div class="cover-letters">
+     <span style="background:#c85d67">A</span>
+     <span style="background:#b58a19">D</span>
+     <span style="background:#147d83">K</span>
+     <span style="background:#6078a8">A</span>
+     <span style="background:#7663a3">R</span>
+    </div>
+    <p style="font-size:14px">
+     Awareness · Desire · Knowledge · Ability · Reinforcement
+    </p>
+   </div>
+  </div>
+ </div>
+</section>
 
+<section class="screen" id="book">
+ <div class="eyebrow">The ADKAR Journey</div>
+ <h2>Turn the page as change progresses.</h2>
+ <p>
+  Explore each of the five human needs using the
+  interactive bookmarks.
+ </p>
+ <div class="book-layout">
+  <div class="book-wrap">
+   <div class="tabs" id="tabs"></div>
+   <div class="book">
+    <article class="book-page" id="bookPage">
+     <div class="page-head">
+      <div class="page-letter" id="pageLetter">A</div>
+      <div>
+       <div class="eyebrow" id="pageStep">Stage 1 of 5</div>
+       <div id="pageQuestion">Why are we changing?</div>
+      </div>
+     </div>
+     <h3 class="page-title" id="pageTitle">Awareness</h3>
+     <p class="page-purpose" id="pagePurpose"></p>
+     <div class="page-grid">
+      <div class="page-box">
+       <h4>What helps</h4>
+       <ul id="pageActions"></ul>
+      </div>
+      <div class="page-box">
+       <h4>Stage outcome</h4>
+       <p id="pageOutcome"></p>
+      </div>
+      <div class="page-box full">
+       <h4>Workplace example</h4>
+       <p id="pageExample"></p>
+      </div>
+     </div>
+    </article>
+   </div>
+  </div>
+  <aside class="side-card">
+   <div class="eyebrow">Where You Are</div>
+   <h3 id="sideTitle">Awareness</h3>
+   <p id="sideCopy"></p>
+   <div class="sequence" id="sequence"></div>
+   <div class="stage-actions">
+    <button id="prevStage" type="button">← Previous</button>
+    <button id="nextStage" class="primary" type="button">
+     Next Stage →
+    </button>
+   </div>
+  </aside>
+ </div>
+</section>
 
-<!-- =======================================================
-     HIDDEN APPS SCRIPT TRACKING FORM
-     ======================================================= -->
+<section class="screen" id="distinction">
+ <div class="distinction">
+  <div class="eyebrow">A Useful Distinction</div>
+  <h2>Training is only part of change.</h2>
+  <p>
+   Training typically supports Knowledge and Ability.
+   People also need context, motivation and reinforcement
+   to sustain new behaviors.
+  </p>
+  <div class="dist-grid">
+   <div class="dist-card">
+    <strong>Training can teach the how.</strong>
+    <p>
+     Training builds knowledge and provides
+     opportunities to practise.
+    </p>
+   </div>
+   <div class="dist-card">
+    <strong>Change requires more than training.</strong>
+    <p>
+     Communication, leadership, involvement
+     and follow-through support adoption.
+    </p>
+   </div>
+  </div>
+ </div>
+</section>
 
-<iframe
-  name="trackingFrame"
-  id="trackingFrame"
-  style="display:none"
-  title="Tracking"
-></iframe>
+<section class="screen" id="quiz">
+ <div class="quiz-wrap">
+  <div class="quiz-top">
+   <div class="eyebrow" id="quizIndex">Question 1 of 7</div>
+   <div class="score-chip" id="quizScore">Score: 0 / 0</div>
+  </div>
+  <h2>Can you diagnose the ADKAR barrier?</h2>
+  <p>
+   Answer seven workplace scenarios. You need at least
+   six correct answers to complete this module.
+  </p>
+  <div class="scenario">
+   <p id="scenarioText"></p>
+  </div>
+  <div id="options"></div>
+  <div class="feedback" id="feedback" aria-live="polite"></div>
+  <div class="quiz-next">
+   <button class="action" id="quizNext" type="button" disabled>
+    Next Question →
+   </button>
+  </div>
+ </div>
+</section>
 
+<section class="screen" id="result">
+ <div class="result-card">
+  <div class="eyebrow">Your Learning Result</div>
+  <div class="result-ring" id="resultRing">
+   <strong id="resultNumber">0%</strong>
+  </div>
+  <h2 id="resultTitle">Your Result</h2>
+  <p id="resultText"></p>
 
-<form
-  id="trackingForm"
-  method="POST"
-  target="trackingFrame"
-  style="display:none"
->
+  <div class="certificate" id="certificate">
+   <div class="eyebrow">Certificate of Completion</div>
+   <h2>ADKAR — A Human Guide to Change</h2>
+   <p>This certifies that</p>
+   <div class="cert-name" id="certName"></div>
+   <p>has completed this interactive microlearning.</p>
+   <p class="cert-meta" id="certScore"></p>
+   <p class="cert-meta" id="certDate"></p>
+   <p class="cert-meta">
+    Self-paced learning completion · Roma Learning Studio
+   </p>
+   <button id="printBtn" class="action" type="button">
+    Print / Save Certificate
+   </button>
+  </div>
 
-  <input
-    type="hidden"
-    name="name"
-    id="trackName"
-  >
+  <button id="retry" class="action" type="button">
+   Retry Knowledge Check
+  </button>
+ </div>
+</section>
+</main>
 
-  <input
-    type="hidden"
-    name="module"
-    id="trackModule"
-  >
+<div class="nav" id="nav">
+ <button id="back" class="back" type="button">← Back</button>
+ <span style="font-size:12px;color:var(--muted)">
+  Self-paced learning
+ </span>
+ <button id="next" class="next" type="button">Start →</button>
+</div>
 
-  <input
-    type="hidden"
-    name="score"
-    id="trackScore"
-  >
-
-  <input
-    type="hidden"
-    name="status"
-    id="trackStatus"
-  >
-
-</form>
-
-
+<div class="footer">
+ Designed by Roma Alamchandani ·
+ <a href="../">Back to Microlearning Studio ↗</a>
+ <div>
+  ADKAR is a change management model associated with Prosci.
+  This independent educational demonstration is not
+  affiliated with or endorsed by Prosci.
+ </div>
+</div>
+</div>
 
 <script>
-
-
-/* =========================================================
-   TRACKING CONFIGURATION
-   ========================================================= */
-
-const TRACKING_URL =
-'https://script.google.com/a/macros/numerator.com/s/AKfycbw9a4dIXIKH9pRP8uJDBmgBWUtnSxsMa-wG9uciDxuDQ5ky5la_83E7V4oz0xeadcLjbw/exec';
-
-
-const MODULE =
-'ADKAR';
-
-
-const PASS_PERCENT =
-85;
-
-
-/* =========================================================
-   ADKAR STAGE DATA
-   ========================================================= */
-
-const stageData = [
-
-  {
-
-    letter:'A',
-
-    name:'Awareness',
-
-    color:'#e9858a',
-
-    question:
-      'Why are we changing?',
-
-    outcome:
-      'Understand why the change is necessary and what problem it addresses.',
-
-    actions:[
-
-      'Explain the business driver and urgency.',
-
-      'Show what happens if nothing changes.',
-
-      'Connect the change to team and organisation goals.'
-
-    ],
-
-    example:
-      'A new CRM is being introduced. Before training begins, employees hear why the current process is slowing response time and affecting customers.'
-
-  },
-
-
-  {
-
-    letter:'D',
-
-    name:'Desire',
-
-    color:'#e5bf4e',
-
-    question:
-      'Do I want to support this change?',
-
-    outcome:
-      'Choose to engage with the change rather than simply understand it.',
-
-    actions:[
-
-      'Address concerns and resistance openly.',
-
-      'Make the personal and team benefits visible.',
-
-      'Involve people in the transition where practical.'
-
-    ],
-
-    example:
-      'The team understands the reason for the CRM, but some people worry it will increase workload. Leaders address the concern, explain benefits, and involve users in the transition.'
-
-  },
-
-
-  {
-
-    letter:'K',
-
-    name:'Knowledge',
-
-    color:'#58b7b3',
-
-    question:
-      'How do I change?',
-
-    outcome:
-      'Know what to do differently — including new processes, skills, or behaviours.',
-
-    actions:[
-
-      'Provide training, demos, job aids, and examples.',
-
-      'Teach the new process or behaviour.',
-
-      'Create space for questions and clarification.'
-
-    ],
-
-    example:
-      'Employees receive a guided walkthrough, practice activities, quick-reference job aids, and examples of the new CRM workflow.'
-
-  },
-
-
-  {
-
-    letter:'A',
-
-    name:'Ability',
-
-    color:'#7f95bd',
-
-    question:
-      'Can I perform it effectively?',
-
-    outcome:
-      'Turn knowledge into confident performance in real work.',
-
-    actions:[
-
-      'Use hands-on practice and coaching.',
-
-      'Observe performance and give feedback.',
-
-      'Remove practical barriers to execution.'
-
-    ],
-
-    example:
-      'After training, employees process real cases in the CRM. A trainer observes, coaches, and helps resolve practical blockers.'
-
-  },
-
-
-  {
-
-    letter:'R',
-
-    name:'Reinforcement',
-
-    color:'#a69ac8',
-
-    question:
-      'How do we make it stick?',
-
-    outcome:
-      'Sustain the change with recognition, measurement, feedback, and follow-through.',
-
-    actions:[
-
-      'Measure adoption and desired behaviour.',
-
-      'Recognise progress and success.',
-
-      'Continue support and address slippage quickly.'
-
-    ],
-
-    example:
-      'Managers review usage data, recognise strong adoption, revisit gaps in 1:1s, and reinforce the new process until it becomes routine.'
-
-  }
-
-];
-
-
-/* =========================================================
-   7 SCENARIO QUESTIONS
-   ========================================================= */
-
-const quizData = [
-
-  {
-
-    text:
-      'A new system is being introduced. Employees know what is changing, but nobody has explained why the change is necessary or what problem it solves. Which ADKAR stage is weakest?',
-
-    options:[
-      'Awareness',
-      'Desire',
-      'Knowledge',
-      'Ability'
-    ],
-
-    answer:0,
-
-    explanation:
-      'Awareness is the gap. People need to understand why the change is necessary, what is driving it, and what may happen if nothing changes.'
-
-  },
-
-
-  {
-
-    text:
-      'Employees understand why a new process is being introduced, but several team members say, “I understand the reason, but I do not want to work this way.” Which stage needs the most attention?',
-
-    options:[
-      'Awareness',
-      'Desire',
-      'Knowledge',
-      'Reinforcement'
-    ],
-
-    answer:1,
-
-    explanation:
-      'Desire is the gap. Understanding the reason for change does not automatically mean someone is willing to support or participate in it.'
-
-  },
-
-
-  {
-
-    text:
-      'An employee says, “I understand why the company is changing this and I am willing to support it, but I do not know what I am supposed to do differently.” Which stage is weakest?',
-
-    options:[
-      'Desire',
-      'Knowledge',
-      'Ability',
-      'Reinforcement'
-    ],
-
-    answer:1,
-
-    explanation:
-      'Knowledge is the gap. The employee understands and supports the change but still needs to learn the new process, skill, or behaviour.'
-
-  },
-
-
-  {
-
-    text:
-      'Employees completed training on a new CRM and can explain the process correctly. However, when working on real customer cases, they struggle to perform the steps accurately. Which stage needs attention?',
-
-    options:[
-      'Awareness',
-      'Knowledge',
-      'Ability',
-      'Reinforcement'
-    ],
-
-    answer:2,
-
-    explanation:
-      'Ability is the gap. Knowing how something works is different from being able to perform it confidently in real work. Practice, coaching, and feedback are needed.'
-
-  },
-
-
-  {
-
-    text:
-      'A team successfully adopts a new process for several weeks, but after managers stop reviewing it, employees gradually return to the old way of working. Which ADKAR stage is weakest?',
-
-    options:[
-      'Desire',
-      'Knowledge',
-      'Ability',
-      'Reinforcement'
-    ],
-
-    answer:3,
-
-    explanation:
-      'Reinforcement is the gap. Recognition, measurement, feedback, and continued follow-through help prevent people from returning to old habits.'
-
-  },
-
-
-  {
-
-    text:
-      'A manager asks L&D to create training because employees are resisting a new policy. Employees already know exactly how to follow the new process, but they disagree with the change and see no personal benefit. What should be addressed first?',
-
-    options:[
-      'Create more Knowledge training',
-      'Build Ability through additional practice',
-      'Address Desire and understand the resistance',
-      'Add another job aid'
-    ],
-
-    answer:2,
-
-    explanation:
-      'The issue is not Knowledge or Ability. Employees know what to do but do not want to support the change. The Desire barrier should be addressed before adding more training.'
-
-  },
-
-
-  {
-
-    text:
-      'A change initiative has low adoption. Before deciding whether the solution should be training, coaching, communication, or recognition, what is the strongest ADKAR approach?',
-
-    options:[
-      'Create training for all five stages',
-      'Identify which ADKAR outcome is currently missing',
-      'Start with Knowledge because training is always required',
-      'Wait until implementation is complete before investigating'
-    ],
-
-    answer:1,
-
-    explanation:
-      'ADKAR is most useful as a diagnostic model. Identify the missing outcome first, then choose the intervention that addresses that specific barrier.'
-
-  }
-
-];
-
-
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
-
-const screens = [
-
-  document.getElementById(
-    'introScreen'
-  ),
-
-  document.getElementById(
-    'bookScreen'
-  ),
-
-  document.getElementById(
-    'distinctionScreen'
-  ),
-
-  document.getElementById(
-    'quizScreen'
-  ),
-
-  document.getElementById(
-    'resultScreen'
-  )
-
-];
-
-
-const progressBar =
-document.getElementById(
-  'progressBar'
-);
-
-
-const headerCount =
-document.getElementById(
-  'headerCount'
-);
-
-
-const backBtn =
-document.getElementById(
-  'backBtn'
-);
-
-
-const nextBtn =
-document.getElementById(
-  'nextBtn'
-);
-
-
-const bottomNav =
-document.getElementById(
-  'bottomNav'
-);
-
-
-const timeText =
-document.getElementById(
-  'timeText'
-);
-
-
-const learnerName =
-document.getElementById(
-  'learnerName'
-);
-
-
-let screenIndex =
-0;
-
-
-let stageIndex =
-0;
-
-
-let visitedStages =
-new Set([0]);
-
-
-let quizIndex =
-0;
-
-
-let correctCount =
-0;
-
-
-let quizAnswers =
-Array(
-  quizData.length
-).fill(null);
-
-
-/*
-Prevents the result screen from submitting
-the same completion multiple times in one session.
-*/
-
-let completionSubmitted =
-false;
-
-
-/* =========================================================
-   NAME VALIDATION
-   ========================================================= */
-
-function learnerNameValid(){
-
-  return learnerName
-    .value
-    .trim()
-    .length > 1;
-
+(()=>{
+"use strict";
+
+const PASS=85;
+
+const stages=[
+{
+ letter:"A",name:"Awareness",color:"#c85d67",
+ question:"Why are we changing?",
+ outcome:"Understand why change is necessary and what problem it addresses.",
+ actions:[
+  "Explain the business driver and urgency.",
+  "Show what happens if nothing changes.",
+  "Connect change to organizational goals."
+ ],
+ example:"A new CRM is being introduced. Employees first learn why the current process is slowing response times."
+},
+{
+ letter:"D",name:"Desire",color:"#b58a19",
+ question:"Do I want to support this change?",
+ outcome:"Choose to engage with the change rather than simply understand it.",
+ actions:[
+  "Address concerns openly.",
+  "Make personal and team benefits visible.",
+  "Involve people in the transition."
+ ],
+ example:"Employees understand the CRM change but worry about workload. Leaders discuss concerns and involve users."
+},
+{
+ letter:"K",name:"Knowledge",color:"#147d83",
+ question:"How do I change?",
+ outcome:"Know what to do differently, including new processes, skills and behaviors.",
+ actions:[
+  "Provide training, demonstrations and job aids.",
+  "Teach the new process.",
+  "Create opportunities for questions."
+ ],
+ example:"Employees receive a walkthrough, practice activities and quick-reference materials for the CRM."
+},
+{
+ letter:"A",name:"Ability",color:"#6078a8",
+ question:"Can I perform it effectively?",
+ outcome:"Turn knowledge into confident performance in real work.",
+ actions:[
+  "Provide hands-on practice.",
+  "Observe performance and give feedback.",
+  "Remove practical barriers."
+ ],
+ example:"Employees work on real CRM cases while receiving coaching and feedback."
+},
+{
+ letter:"R",name:"Reinforcement",color:"#7663a3",
+ question:"How do we make it stick?",
+ outcome:"Sustain change through recognition, measurement, feedback and follow-through.",
+ actions:[
+  "Measure adoption and behavior.",
+  "Recognize progress and success.",
+  "Continue support and address setbacks."
+ ],
+ example:"Managers review CRM usage, recognize progress and reinforce the new workflow until it becomes routine."
 }
+];
 
+const questions=[
+{
+ text:"Employees know what is changing, but nobody has explained why the change is necessary. Which stage is weakest?",
+ options:["Awareness","Desire","Knowledge","Ability"],
+ answer:0,
+ explanation:"Awareness helps people understand why change is needed."
+},
+{
+ text:"Employees understand the reason for change but do not want to support it. Which stage needs attention?",
+ options:["Awareness","Desire","Knowledge","Reinforcement"],
+ answer:1,
+ explanation:"Desire concerns willingness to participate in change."
+},
+{
+ text:"An employee supports the change but does not know what to do differently. Which stage is weakest?",
+ options:["Desire","Knowledge","Ability","Reinforcement"],
+ answer:1,
+ explanation:"Knowledge provides understanding of new processes and behaviors."
+},
+{
+ text:"Employees understand a new CRM but struggle to use it accurately in real work. Which stage needs attention?",
+ options:["Awareness","Knowledge","Ability","Reinforcement"],
+ answer:2,
+ explanation:"Ability requires practical application, coaching and feedback."
+},
+{
+ text:"A team adopts a new process but gradually returns to old habits when follow-up stops. Which stage is weakest?",
+ options:["Desire","Knowledge","Ability","Reinforcement"],
+ answer:3,
+ explanation:"Reinforcement helps sustain change over time."
+},
+{
+ text:"Employees know how to follow a new policy but disagree with it. What should be addressed first?",
+ options:[
+  "Provide more Knowledge training.",
+  "Repeat the same demonstration.",
+  "Understand resistance and address Desire.",
+  "Create another job aid."
+ ],
+ answer:2,
+ explanation:"The barrier is willingness, not knowledge."
+},
+{
+ text:"A change initiative has low adoption. What is the strongest first step?",
+ options:[
+  "Create training for all stages.",
+  "Identify which ADKAR outcome is missing.",
+  "Assume Knowledge is the problem.",
+  "Wait until the initiative ends."
+ ],
+ answer:1,
+ explanation:"Diagnose the missing outcome before choosing an intervention."
+}
+];
 
-/* =========================================================
-   SCREEN NAVIGATION
-   ========================================================= */
+const screens=[...document.querySelectorAll(".screen")];
+const progress=document.getElementById("progress");
+const counter=document.getElementById("counter");
+const back=document.getElementById("back");
+const next=document.getElementById("next");
+const nav=document.getElementById("nav");
+
+let current=0,stageIndex=0,quizIndex=0,correct=0;
+let answered=false;
+let turning=false;
 
 function showScreen(index){
-
-  screenIndex =
-  Math.max(
-    0,
-    Math.min(
-      index,
-      screens.length - 1
-    )
-  );
-
-
-  screens.forEach(
-    (screen,i) => {
-
-      screen
-        .classList
-        .toggle(
-          'active',
-          i === screenIndex
-        );
-
-    }
-  );
-
-
-  const progressValues =
-  [
-    8,
-    40,
-    62,
-    78,
-    100
-  ];
-
-
-  progressBar.style.width =
-  progressValues[
-    screenIndex
-  ] + '%';
-
-
-  if(
-    screenIndex === 0
-  ){
-
-    headerCount.textContent =
-    'Start';
-
-    backBtn.style.visibility =
-    'hidden';
-
-    nextBtn.style.display =
-    '';
-
-    nextBtn.textContent =
-    'Start →';
-
-    nextBtn.disabled =
-    !learnerNameValid();
-
-    timeText.textContent =
-    'Estimated time: 5 min';
-
-    bottomNav.style.display =
-    'flex';
-
-  }
-
-
-  if(
-    screenIndex === 1
-  ){
-
-    headerCount.textContent =
-    'ADKAR stages';
-
-    backBtn.style.visibility =
-    'visible';
-
-    nextBtn.style.display =
-    'none';
-
-    timeText.textContent =
-    'Turn the page through all five stages';
-
-    bottomNav.style.display =
-    'flex';
-
-    renderStage(
-      false
-    );
-
-  }
-
-
-  if(
-    screenIndex === 2
-  ){
-
-    headerCount.textContent =
-    'Training vs change';
-
-    backBtn.style.visibility =
-    'visible';
-
-    nextBtn.style.display =
-    '';
-
-    nextBtn.textContent =
-    'Knowledge check →';
-
-    nextBtn.disabled =
-    false;
-
-    timeText.textContent =
-    'One useful distinction';
-
-    bottomNav.style.display =
-    'flex';
-
-  }
-
-
-  if(
-    screenIndex === 3
-  ){
-
-    headerCount.textContent =
-    `Question ${quizIndex + 1} / ${quizData.length}`;
-
-    backBtn.style.visibility =
-    'visible';
-
-    nextBtn.style.display =
-    'none';
-
-    timeText.textContent =
-    'Knowledge check';
-
-    bottomNav.style.display =
-    'flex';
-
-    renderQuestion();
-
-  }
-
-
-  if(
-    screenIndex === 4
-  ){
-
-    headerCount.textContent =
-    'Result';
-
-    bottomNav.style.display =
-    'none';
-
-    renderResult();
-
-  }
-
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-
+ current=index;
+ screens.forEach((s,i)=>s.classList.toggle("active",i===index));
+ progress.style.width=Math.round((index+1)/screens.length*100)+"%";
+ counter.textContent=`${index+1} / ${screens.length}`;
+ nav.style.display=index===4?"none":"flex";
+ back.style.visibility=index===0?"hidden":"visible";
+ next.style.display=(index===0||index===2)?"":"none";
+ next.textContent=index===0?"Start →":"Knowledge Check →";
+ if(index===1)renderStage();
+ if(index===3)renderQuestion();
+ if(index===4)renderResult();
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
-
-/* =========================================================
-   INTRO EVENTS
-   ========================================================= */
-
-learnerName
-.addEventListener(
-  'input',
-  () => {
-
-    if(
-      screenIndex === 0
-    ){
-
-      nextBtn.disabled =
-      !learnerNameValid();
-
-    }
-
-  }
-);
-
-
-nextBtn
-.addEventListener(
-  'click',
-  () => {
-
-    if(
-      screenIndex === 0 &&
-      learnerNameValid()
-    ){
-
-      showScreen(1);
-
-    }
-
-    else if(
-      screenIndex === 2
-    ){
-
-      showScreen(3);
-
-    }
-
-  }
-);
-
-
-backBtn
-.addEventListener(
-  'click',
-  () => {
-
-    if(
-      screenIndex === 1
-    ){
-
-      showScreen(0);
-
-    }
-
-    else if(
-      screenIndex === 2
-    ){
-
-      showScreen(1);
-
-    }
-
-    else if(
-      screenIndex === 3
-    ){
-
-      showScreen(2);
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   BOOK TABS
-   ========================================================= */
-
-const tabsWrap =
-document.getElementById(
-  'stageTabs'
-);
-
-
-const sideSequence =
-document.getElementById(
-  'sideSequence'
-);
-
-
-function buildStageTabs(){
-
-  tabsWrap.innerHTML =
-  '';
-
-
-  sideSequence.innerHTML =
-  '';
-
-
-  stageData.forEach(
-    (stage,i) => {
-
-
-      const tab =
-      document.createElement(
-        'button'
-      );
-
-
-      tab.type =
-      'button';
-
-
-      tab.className =
-      'stage-tab';
-
-
-      tab.innerHTML =
-      `
-        <strong>
-          ${stage.letter}
-        </strong>
-
-        <span>
-          ${stage.name}
-        </span>
-      `;
-
-
-      if(
-        i === stageIndex
-      ){
-
-        tab
-          .classList
-          .add(
-            'active'
-          );
-
-
-        tab.style.background =
-        stage.color;
-
-      }
-
-
-      if(
-        visitedStages.has(i) &&
-        i !== stageIndex
-      ){
-
-        tab
-          .classList
-          .add(
-            'done'
-          );
-
-      }
-
-
-      tab.addEventListener(
-        'click',
-        () => {
-
-          changeStage(i);
-
-        }
-      );
-
-
-      tabsWrap.appendChild(
-        tab
-      );
-
-
-      const seq =
-      document.createElement(
-        'div'
-      );
-
-
-      seq.className =
-      'seq';
-
-
-      seq.textContent =
-      stage.letter;
-
-
-      if(
-        i === stageIndex
-      ){
-
-        seq
-          .classList
-          .add(
-            'active'
-          );
-
-
-        seq.style.background =
-        stage.color;
-
-      }
-
-
-      sideSequence
-        .appendChild(
-          seq
-        );
-
-    }
-  );
-
+next.addEventListener("click",()=>{
+ if(current===0)showScreen(1);
+ else if(current===2)showScreen(3);
+});
+
+back.addEventListener("click",()=>{
+ if(current===1)showScreen(0);
+ else if(current===2)showScreen(1);
+ else if(current===3)showScreen(2);
+});
+
+function fillList(id,items){
+ const ul=document.getElementById(id);
+ ul.replaceChildren();
+ items.forEach(item=>{
+  const li=document.createElement("li");
+  li.textContent=item;
+  ul.appendChild(li);
+ });
 }
 
+function renderStage(){
+ const s=stages[stageIndex];
+ document.getElementById("pageLetter").textContent=s.letter;
+ document.getElementById("pageLetter").style.background=s.color;
+ document.getElementById("pageStep").textContent=
+  `Stage ${stageIndex+1} of 5`;
+ document.getElementById("pageQuestion").textContent=s.question;
+ document.getElementById("pageTitle").textContent=s.name;
+ document.getElementById("pagePurpose").textContent=s.outcome;
+ document.getElementById("pageOutcome").textContent=s.outcome;
+ document.getElementById("pageExample").textContent=s.example;
+ document.getElementById("sideTitle").textContent=s.name;
+ document.getElementById("sideCopy").textContent=
+  s.question+" Explore the actions that support this stage.";
+ fillList("pageActions",s.actions);
 
-/* =========================================================
-   BOOK PAGE
-   ========================================================= */
+ const tabs=document.getElementById("tabs");
+ const sequence=document.getElementById("sequence");
+ tabs.replaceChildren();
+ sequence.replaceChildren();
 
-function renderStage(
-  animate
-){
+ stages.forEach((stage,i)=>{
+  const b=document.createElement("button");
+  b.type="button";
+  b.className="tab"+(i===stageIndex?" active":"");
+  b.setAttribute("aria-pressed",String(i===stageIndex));
+  b.innerHTML=`<b>${stage.letter}</b>${stage.name}`;
+  if(i===stageIndex)b.style.background=stage.color;
+  b.addEventListener("click",()=>changeStage(i));
+  tabs.appendChild(b);
 
-  const stage =
-  stageData[
-    stageIndex
-  ];
-
-
-  const page =
-  document.getElementById(
-    'bookPage'
-  );
-
-
-  const update =
-  () => {
-
-
-    document
-      .getElementById(
-        'pageLetter'
-      )
-      .textContent =
-      stage.letter;
-
-
-    document
-      .getElementById(
-        'pageLetter'
-      )
-      .style
-      .background =
-      stage.color;
-
-
-    document
-      .getElementById(
-        'pageStep'
-      )
-      .textContent =
-      `Stage ${stageIndex + 1} of 5`;
-
-
-    document
-      .getElementById(
-        'pageQuestion'
-      )
-      .textContent =
-      stage.question;
-
-
-    document
-      .getElementById(
-        'pageTitle'
-      )
-      .textContent =
-      stage.name;
-
-
-    document
-      .getElementById(
-        'pagePurpose'
-      )
-      .textContent =
-      stage.outcome;
-
-
-    document
-      .getElementById(
-        'pageOutcome'
-      )
-      .textContent =
-      stage.outcome;
-
-
-    document
-      .getElementById(
-        'pageActions'
-      )
-      .innerHTML =
-      stage.actions
-        .map(
-          item =>
-          `<li>${item}</li>`
-        )
-        .join('');
-
-
-    document
-      .getElementById(
-        'pageExample'
-      )
-      .textContent =
-      stage.example;
-
-
-    document
-      .getElementById(
-        'sideTitle'
-      )
-      .textContent =
-      stage.name;
-
-
-    document
-      .getElementById(
-        'sideCopy'
-      )
-      .textContent =
-      `${stage.question} This page focuses on what the individual needs at this stage of the change.`;
-
-
-    const prev =
-    document.getElementById(
-      'prevStageBtn'
-    );
-
-
-    const next =
-    document.getElementById(
-      'nextStageBtn'
-    );
-
-
-    prev.disabled =
-    stageIndex === 0;
-
-
-    if(
-      stageIndex <
-      stageData.length - 1
-    ){
-
-      next.textContent =
-      `Next: ${stageData[stageIndex + 1].name} →`;
-
-    }
-
-    else{
-
-      next.textContent =
-      'Continue: Training vs change →';
-
-    }
-
-
-    buildStageTabs();
-
-  };
-
-
-  if(
-    !animate ||
-    window
-      .matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      )
-      .matches
-  ){
-
-    update();
-
-    return;
-
+  const chip=document.createElement("span");
+  chip.textContent=stage.letter;
+  if(i===stageIndex){
+   chip.className="active";
+   chip.style.background=stage.color;
   }
+  sequence.appendChild(chip);
+ });
 
+ document.getElementById("prevStage").disabled=
+  stageIndex===0||turning;
 
-  page
-    .classList
-    .remove(
-      'turning'
-    );
-
-
-  void page.offsetWidth;
-
-
-  page
-    .classList
-    .add(
-      'turning'
-    );
-
-
-  setTimeout(
-    update,
-    300
-  );
-
-
-  setTimeout(
-    () => {
-
-      page
-        .classList
-        .remove(
-          'turning'
-        );
-
-    },
-    650
-  );
-
+ document.getElementById("nextStage").disabled=turning;
+ document.getElementById("nextStage").textContent=
+  stageIndex===4?"Continue to Learning Insight →":
+  `Next: ${stages[stageIndex+1].name} →`;
 }
 
+function changeStage(index){
+ if(index===stageIndex||turning)return;
 
-function changeStage(
-  index
-){
+ const reduce=window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+ ).matches;
 
-  if(
-    index === stageIndex
-  ){
+ if(reduce){
+  stageIndex=index;renderStage();return;
+ }
 
-    return;
+ turning=true;
+ const page=document.getElementById("bookPage");
+ page.classList.remove("turning");
+ void page.offsetWidth;
+ page.classList.add("turning");
 
-  }
+ document.getElementById("prevStage").disabled=true;
+ document.getElementById("nextStage").disabled=true;
+ document.querySelectorAll(".tab").forEach(b=>b.disabled=true);
 
+ setTimeout(()=>{
+  stageIndex=index;
+  renderStage();
+ },300);
 
-  stageIndex =
-  index;
-
-
-  visitedStages.add(
-    index
-  );
-
-
-  renderStage(
-    true
-  );
-
+ setTimeout(()=>{
+  page.classList.remove("turning");
+  turning=false;
+  renderStage();
+ },650);
 }
 
+document.getElementById("prevStage").addEventListener("click",()=>{
+ if(stageIndex>0)changeStage(stageIndex-1);
+});
 
-document
-.getElementById(
-  'prevStageBtn'
-)
-.addEventListener(
-  'click',
-  () => {
-
-    if(
-      stageIndex > 0
-    ){
-
-      changeStage(
-        stageIndex - 1
-      );
-
-    }
-
-  }
-);
-
-
-document
-.getElementById(
-  'nextStageBtn'
-)
-.addEventListener(
-  'click',
-  () => {
-
-    if(
-      stageIndex <
-      stageData.length - 1
-    ){
-
-      changeStage(
-        stageIndex + 1
-      );
-
-    }
-
-    else{
-
-      showScreen(2);
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   QUIZ
-   ========================================================= */
+document.getElementById("nextStage").addEventListener("click",()=>{
+ if(turning)return;
+ if(stageIndex<4)changeStage(stageIndex+1);
+ else showScreen(2);
+});
 
 function renderQuestion(){
+ if(quizIndex>=questions.length){
+  showScreen(4);return;
+ }
+ answered=false;
+ const q=questions[quizIndex];
+ document.getElementById("quizIndex").textContent=
+  `Question ${quizIndex+1} of ${questions.length}`;
+ document.getElementById("quizScore").textContent=
+  `Score: ${correct} / ${quizIndex}`;
+ document.getElementById("scenarioText").textContent=q.text;
 
-  if(
-    quizIndex >=
-    quizData.length
-  ){
+ const options=document.getElementById("options");
+ options.replaceChildren();
+ const feedback=document.getElementById("feedback");
+ feedback.className="feedback";
+ feedback.textContent="";
 
-    showScreen(4);
+ const quizNext=document.getElementById("quizNext");
+ quizNext.disabled=true;
+ quizNext.textContent=quizIndex===questions.length-1?
+  "See My Result →":"Next Question →";
 
-    return;
-
-  }
-
-
-  const question =
-  quizData[
-    quizIndex
-  ];
-
-
-  document
-    .getElementById(
-      'quizScore'
-    )
-    .textContent =
-    `Score: ${correctCount} / ${quizIndex}`;
-
-
-  document
-    .getElementById(
-      'scenarioText'
-    )
-    .textContent =
-    question.text;
-
-
-  const options =
-  document.getElementById(
-    'options'
-  );
-
-
-  const feedback =
-  document.getElementById(
-    'feedback'
-  );
-
-
-  const next =
-  document.getElementById(
-    'quizNextBtn'
-  );
-
-
-  options.innerHTML =
-  '';
-
-
-  feedback.className =
-  'feedback';
-
-
-  feedback.innerHTML =
-  '';
-
-
-  next.disabled =
-  true;
-
-
-  next.textContent =
-  quizIndex ===
-  quizData.length - 1
-    ?
-    'See my result →'
-    :
-    'Next question →';
-
-
-  question.options
-  .forEach(
-    (text,i) => {
-
-
-      const btn =
-      document.createElement(
-        'button'
-      );
-
-
-      btn.type =
-      'button';
-
-
-      btn.className =
-      'option';
-
-
-      btn.textContent =
-      text;
-
-
-      btn.addEventListener(
-        'click',
-        () => {
-
-          answerQuestion(
-            i
-          );
-
-        }
-      );
-
-
-      options
-        .appendChild(
-          btn
-        );
-
-    }
-  );
-
+ q.options.forEach((option,i)=>{
+  const b=document.createElement("button");
+  b.type="button";
+  b.className="option";
+  b.textContent=option;
+  b.addEventListener("click",()=>answerQuestion(i));
+  options.appendChild(b);
+ });
 }
 
+function answerQuestion(choice){
+ if(answered)return;
+ answered=true;
+ const q=questions[quizIndex];
+ const buttons=[...document.querySelectorAll("#options .option")];
+ buttons.forEach((b,i)=>{
+  b.disabled=true;
+  if(i===q.answer)b.classList.add("correct");
+ });
 
-/* =========================================================
-   ANSWER QUESTION
-   ========================================================= */
+ const feedback=document.getElementById("feedback");
+ if(choice===q.answer){
+  correct++;
+  feedback.className="feedback show ok";
+  feedback.textContent="Correct. "+q.explanation;
+ }else{
+  buttons[choice].classList.add("wrong");
+  feedback.className="feedback show bad";
+  feedback.textContent="Not quite. "+q.explanation;
+ }
 
-function answerQuestion(
-  choice
-){
-
-  if(
-    quizAnswers[
-      quizIndex
-    ] !== null
-  ){
-
-    return;
-
-  }
-
-
-  const question =
-  quizData[
-    quizIndex
-  ];
-
-
-  quizAnswers[
-    quizIndex
-  ] =
-  choice;
-
-
-  const buttons =
-  [
-    ...document
-      .querySelectorAll(
-        '#options .option'
-      )
-  ];
-
-
-  const feedback =
-  document.getElementById(
-    'feedback'
-  );
-
-
-  buttons.forEach(
-    (button,i) => {
-
-
-      button.disabled =
-      true;
-
-
-      if(
-        i ===
-        question.answer
-      ){
-
-        button
-          .classList
-          .add(
-            'correct'
-          );
-
-      }
-
-    }
-  );
-
-
-  if(
-    choice ===
-    question.answer
-  ){
-
-    correctCount++;
-
-
-    feedback.className =
-    'feedback show ok';
-
-
-    feedback.innerHTML =
-    `<b>Correct.</b> ${question.explanation}`;
-
-  }
-
-  else{
-
-
-    buttons[
-      choice
-    ]
-      .classList
-      .add(
-        'wrong'
-      );
-
-
-    feedback.className =
-    'feedback show bad';
-
-
-    feedback.innerHTML =
-    `<b>Not quite.</b> ${question.explanation}`;
-
-  }
-
-
-  document
-    .getElementById(
-      'quizScore'
-    )
-    .textContent =
-    `Score: ${correctCount} / ${quizIndex + 1}`;
-
-
-  document
-    .getElementById(
-      'quizNextBtn'
-    )
-    .disabled =
-    false;
-
+ document.getElementById("quizScore").textContent=
+  `Score: ${correct} / ${quizIndex+1}`;
+ document.getElementById("quizNext").disabled=false;
 }
 
-
-/* =========================================================
-   NEXT QUIZ QUESTION
-   ========================================================= */
-
-document
-.getElementById(
-  'quizNextBtn'
-)
-.addEventListener(
-  'click',
-  () => {
-
-
-    if(
-      quizAnswers[
-        quizIndex
-      ] === null
-    ){
-
-      return;
-
-    }
-
-
-    quizIndex++;
-
-
-    if(
-      quizIndex >=
-      quizData.length
-    ){
-
-      showScreen(4);
-
-    }
-
-    else{
-
-
-      headerCount.textContent =
-      `Question ${quizIndex + 1} / ${quizData.length}`;
-
-
-      renderQuestion();
-
-
-      window.scrollTo({
-        top:0,
-        behavior:'smooth'
-      });
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   SCORE
-   ========================================================= */
-
-function calculatePercent(){
-
-  return Math.round(
-    (
-      correctCount /
-      quizData.length
-    ) * 100
-  );
-
-}
-
-
-/* =========================================================
-   SUBMIT COMPLETION TO APPS SCRIPT
-   ========================================================= */
-
-function sendCompletionRecord(
-  percent
-){
-
-  /*
-  Do not send the same completion repeatedly
-  if renderResult() runs more than once.
-  */
-
-  if(
-    completionSubmitted
-  ){
-
-    return;
-
-  }
-
-
-  const statusBox =
-  document.getElementById(
-    'recordStatus'
-  );
-
-
-  const form =
-  document.getElementById(
-    'trackingForm'
-  );
-
-
-  document
-    .getElementById(
-      'trackName'
-    )
-    .value =
-    learnerName
-      .value
-      .trim();
-
-
-  document
-    .getElementById(
-      'trackModule'
-    )
-    .value =
-    MODULE;
-
-
-  document
-    .getElementById(
-      'trackScore'
-    )
-    .value =
-    `${percent}%`;
-
-
-  document
-    .getElementById(
-      'trackStatus'
-    )
-    .value =
-    'Completed';
-
-
-  form.action =
-  TRACKING_URL;
-
-
-  statusBox.innerHTML =
-  `
-    <b>Submitting completion record...</b><br>
-    Your signed-in Numerator account will be used for verification.
-  `;
-
-
-  try{
-
-
-    form.submit();
-
-
-    completionSubmitted =
-    true;
-
-
-    setTimeout(
-      () => {
-
-        statusBox.innerHTML =
-        `
-          <b>Completion submitted.</b><br>
-          Your result has been sent to the microlearning tracking system.
-        `;
-
-      },
-      1200
-    );
-
-
-  }
-
-  catch(error){
-
-
-    console.error(
-      'Tracking submission failed:',
-      error
-    );
-
-
-    statusBox.innerHTML =
-    `
-      <b>Completion achieved.</b><br>
-      The tracking request could not be sent from this browser.
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   RESULT
-   ========================================================= */
+document.getElementById("quizNext").addEventListener("click",()=>{
+ if(!answered)return;
+ quizIndex++;
+ if(quizIndex>=questions.length)showScreen(4);
+ else renderQuestion();
+});
 
 function renderResult(){
+ const percent=Math.round(correct/questions.length*100);
+ const passed=percent>=PASS;
 
-  const percent =
-  calculatePercent();
+ document.getElementById("resultNumber").textContent=percent+"%";
+ document.getElementById("resultRing").style.setProperty(
+  "--angle",(percent*3.6)+"deg"
+ );
 
+ document.getElementById("resultTitle").textContent=
+  passed?"Learning Completed!":"Keep Practising";
 
-  const passed =
-  percent >=
-  PASS_PERCENT;
+ document.getElementById("resultText").textContent=
+  passed
+  ?"You demonstrated an understanding of how to identify ADKAR barriers and select appropriate responses."
+  :"You need at least 85% to complete this module. Review the stages and retry.";
 
+ const certificate=document.getElementById("certificate");
+ certificate.classList.toggle("show",passed);
 
-  document
-    .getElementById(
-      'resultNumber'
-    )
-    .textContent =
-    percent + '%';
-
-
-  document
-    .getElementById(
-      'resultRing'
-    )
-    .style
-    .setProperty(
-      '--score-angle',
-      (
-        percent * 3.6
-      ) + 'deg'
-    );
-
-
-  document
-    .getElementById(
-      'correctChip'
-    )
-    .textContent =
-    `${correctCount} / ${quizData.length} correct`;
-
-
-  const title =
-  document.getElementById(
-    'resultTitle'
-  );
-
-
-  const message =
-  document.getElementById(
-    'resultMessage'
-  );
-
-
-  const certificate =
-  document.getElementById(
-    'certificate'
-  );
-
-
-  const statusBox =
-  document.getElementById(
-    'recordStatus'
-  );
-
-
-  if(
-    passed
-  ){
-
-
-    title.textContent =
-    'Completed';
-
-
-    message.textContent =
-    'You demonstrated a strong understanding of how to identify ADKAR barriers and choose the appropriate response.';
-
-
-    document
-      .getElementById(
-        'certName'
-      )
-      .textContent =
-      learnerName
-        .value
-        .trim();
-
-
-    document
-      .getElementById(
-        'certScore'
-      )
-      .textContent =
-      `Score: ${percent}%`;
-
-
-    document
-      .getElementById(
-        'certDate'
-      )
-      .textContent =
-      `Completed on ${
-        new Date()
-          .toLocaleDateString(
-            'en-GB',
-            {
-              day:'2-digit',
-              month:'long',
-              year:'numeric'
-            }
-          )
-      }`;
-
-
-    certificate
-      .classList
-      .add(
-        'show'
-      );
-
-
-    /*
-    Only passing attempts are sent
-    to the Google Sheet.
-    */
-
-    sendCompletionRecord(
-      percent
-    );
-
-  }
-
-  else{
-
-
-    title.textContent =
-    'Not completed yet';
-
-
-    message.textContent =
-    `You scored ${percent}%. You need at least 85% to complete this microlearning. Review the ADKAR stages and retry the knowledge check.`;
-
-
-    certificate
-      .classList
-      .remove(
-        'show'
-      );
-
-
-    statusBox.innerHTML =
-    `
-      <b>No completion record submitted.</b><br>
-      You need at least 85% to be recorded as completed.
-    `;
-
-  }
-
+ if(passed){
+  document.getElementById("certName").textContent=
+   document.getElementById("learnerName").value.trim()||"Learner";
+  document.getElementById("certScore").textContent=
+   `Assessment Score: ${percent}%`;
+  document.getElementById("certDate").textContent=
+   "Completed on "+new Date().toLocaleDateString("en-GB",{
+    day:"2-digit",month:"long",year:"numeric"
+   });
+ }
 }
 
+document.getElementById("retry").addEventListener("click",()=>{
+ quizIndex=0;correct=0;answered=false;
+ showScreen(3);
+});
 
-/* =========================================================
-   RETRY QUIZ
-   ========================================================= */
+document.getElementById("printBtn").addEventListener("click",()=>{
+ window.print();
+});
 
-document
-.getElementById(
-  'retryBtn'
-)
-.addEventListener(
-  'click',
-  () => {
-
-
-    quizIndex =
-    0;
-
-
-    correctCount =
-    0;
-
-
-    quizAnswers =
-    Array(
-      quizData.length
-    ).fill(null);
-
-
-    document
-      .getElementById(
-        'certificate'
-      )
-      .classList
-      .remove(
-        'show'
-      );
-
-
-    document
-      .getElementById(
-        'recordStatus'
-      )
-      .innerHTML =
-      'Complete the knowledge check to submit a completion record.';
-
-
-    showScreen(3);
-
-  }
-);
-
-
-/* =========================================================
-   CERTIFICATE PRINT
-   ========================================================= */
-
-document
-.getElementById(
-  'certPrintBtn'
-)
-.addEventListener(
-  'click',
-  () => {
-
-    window.print();
-
-  }
-);
-
-
-/* =========================================================
-   INITIALIZE
-   ========================================================= */
-
-renderStage(
-  false
-);
-
-
-showScreen(
-  0
-);
-
-
+showScreen(0);
+})();
 </script>
-
 </body>
 </html>
