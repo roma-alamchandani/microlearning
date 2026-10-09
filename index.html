@@ -5,7 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#17263d">
-<meta name="description" content="Explore interactive microlearning experiences in instructional design, communication, change management and collaboration.">
+<meta name="description" content="Explore interactive learning experiences designed by Roma Alamchandani, featuring instructional design, communication, change management, collaboration and creative storytelling.">
+
 <title>Microlearning Studio | Roma Alamchandani</title>
 
 <style>
@@ -20,9 +21,13 @@
   --border:#e1e7ee;
 }
 
-* {box-sizing:border-box}
+* {
+  box-sizing:border-box;
+}
 
-html {scroll-behavior:smooth}
+html {
+  scroll-behavior:smooth;
+}
 
 body {
   margin:0;
@@ -32,7 +37,9 @@ body {
   -webkit-font-smoothing:antialiased;
 }
 
-a {color:inherit}
+a {
+  color:inherit;
+}
 
 a:focus-visible {
   outline:3px solid var(--gold);
@@ -56,7 +63,9 @@ a:focus-visible {
   letter-spacing:-.4px;
 }
 
-.logo span {color:var(--teal)}
+.logo span {
+  color:var(--teal);
+}
 
 .top-link {
   color:var(--teal);
@@ -65,8 +74,17 @@ a:focus-visible {
   text-decoration:none;
 }
 
+.top-link:hover {
+  text-decoration:underline;
+}
+
 .hero {
-  background:linear-gradient(125deg,#17263d,#23445a 65%,#147d83);
+  background:linear-gradient(
+    125deg,
+    #17263d,
+    #23445a 65%,
+    #147d83
+  );
   color:white;
   text-align:center;
   padding:95px 24px 105px;
@@ -129,7 +147,9 @@ a:focus-visible {
   transition:transform .2s;
 }
 
-.hero-action:hover {transform:translateY(-3px)}
+.hero-action:hover {
+  transform:translateY(-3px);
+}
 
 main {
   max-width:1190px;
@@ -206,10 +226,30 @@ main {
   font-weight:900;
 }
 
-.addie .symbol {background:#e8f3fa;color:#176fc1}
-.email .symbol {background:#f2eaf5;color:#70417b}
-.adkar .symbol {background:#e7f5f1;color:#147d83}
-.raci .symbol {background:#fff2e2;color:#b76c17}
+.addie .symbol {
+  background:#e8f3fa;
+  color:#176fc1;
+}
+
+.email .symbol {
+  background:#f2eaf5;
+  color:#70417b;
+}
+
+.adkar .symbol {
+  background:#e7f5f1;
+  color:#147d83;
+}
+
+.raci .symbol {
+  background:#fff2e2;
+  color:#b76c17;
+}
+
+.hire .symbol {
+  background:#e8f4f0;
+  color:#147d83;
+}
 
 .duration {
   font-size:12px;
@@ -260,7 +300,96 @@ main {
   transition:background .2s;
 }
 
-.card-link:hover {background:var(--teal)}
+.card-link:hover {
+  background:var(--teal);
+}
+
+/* FEATURED HIRING EXPERIENCE */
+
+.featured {
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  align-items:center;
+  gap:35px;
+  background:linear-gradient(
+    125deg,
+    #17263d,
+    #23445a
+  );
+  border-color:#17263d;
+  color:white;
+  min-height:300px;
+}
+
+.featured .category {
+  color:#9de0d9;
+}
+
+.featured h3 {
+  color:white;
+  font-size:clamp(29px,4vw,39px);
+}
+
+.featured p {
+  color:#d9e4ed;
+  max-width:600px;
+}
+
+.featured .card-link {
+  background:white;
+  color:var(--navy);
+  max-width:270px;
+}
+
+.featured .card-link:hover {
+  background:#d9f0eb;
+}
+
+.featured-label {
+  display:inline-block;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  padding:8px 12px;
+  border-radius:25px;
+  color:white;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:20px;
+}
+
+.featured-art {
+  min-height:220px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:20px;
+  background:rgba(255,255,255,.06);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+}
+
+.featured-art .question {
+  font-size:65px;
+  font-weight:900;
+  color:#9de0d9;
+  line-height:1;
+}
+
+.featured-art .quote {
+  font-size:20px;
+  font-weight:800;
+  color:white;
+  margin:18px 0 8px;
+}
+
+.featured-art .reply {
+  color:#cbd9e3;
+  font-size:14px;
+  line-height:1.6;
+}
 
 .about {
   margin-top:75px;
@@ -304,7 +433,9 @@ main {
   transition:background .2s;
 }
 
-.about-links a:hover {background:#edf6f5}
+.about-links a:hover {
+  background:#edf6f5;
+}
 
 footer {
   background:var(--navy);
@@ -315,19 +446,67 @@ footer {
   line-height:1.9;
 }
 
-footer strong {color:white}
+footer strong {
+  color:white;
+}
 
 @media(max-width:760px) {
-  .topbar {padding:17px 20px}
-  .logo {font-size:14px}
-  .top-link {font-size:12px}
-  .hero {padding:75px 20px 85px}
-  .hero h1 {letter-spacing:-1px}
-  .hero p {font-size:16px}
-  main {padding:55px 18px}
-  .cards {grid-template-columns:1fr}
-  .card {min-height:0;padding:26px}
-  .about {grid-template-columns:1fr;padding:28px;gap:25px}
+  .topbar {
+    padding:17px 20px;
+  }
+
+  .logo {
+    font-size:14px;
+  }
+
+  .top-link {
+    font-size:12px;
+  }
+
+  .hero {
+    padding:75px 20px 85px;
+  }
+
+  .hero h1 {
+    letter-spacing:-1px;
+  }
+
+  .hero p {
+    font-size:16px;
+  }
+
+  main {
+    padding:55px 18px;
+  }
+
+  .cards {
+    grid-template-columns:1fr;
+  }
+
+  .card {
+    min-height:0;
+    padding:26px;
+  }
+
+  .featured {
+    grid-column:auto;
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+
+  .featured-art {
+    min-height:170px;
+  }
+
+  .featured .card-link {
+    max-width:none;
+  }
+
+  .about {
+    grid-template-columns:1fr;
+    padding:28px;
+    gap:25px;
+  }
 }
 
 @media(prefers-reduced-motion:reduce) {
@@ -345,6 +524,7 @@ footer strong {color:white}
   <div class="logo">
     ROMA <span>/ LEARNING STUDIO</span>
   </div>
+
   <a class="top-link"
      href="https://roma-alamchandani.github.io/roma-portfolio/"
      target="_blank"
@@ -379,19 +559,24 @@ footer strong {color:white}
 <section id="modules" aria-labelledby="modules-title">
 
   <div class="section-heading">
-    <div class="section-label">Learning Library</div>
+    <div class="section-label">
+      Learning Library
+    </div>
 
     <h2 id="modules-title">
       Choose Your Learning Experience
     </h2>
 
     <p>
-      Four interactive microlearning modules designed
-      to make learning engaging, accessible and applicable.
+      Explore interactive modules covering instructional
+      design, workplace communication, change management,
+      collaboration and creative professional storytelling.
     </p>
   </div>
 
   <div class="cards">
+
+    <!-- ADDIE -->
 
     <article class="card addie">
       <div class="card-top">
@@ -399,7 +584,9 @@ footer strong {color:white}
         <span class="duration">5 MIN</span>
       </div>
 
-      <div class="category">Instructional Design</div>
+      <div class="category">
+        Instructional Design
+      </div>
 
       <h3>ADDIE Model</h3>
 
@@ -414,13 +601,17 @@ footer strong {color:white}
       </a>
     </article>
 
+    <!-- THINK BEFORE YOU SEND -->
+
     <article class="card email">
       <div class="card-top">
         <div class="symbol" aria-hidden="true">✉</div>
         <span class="duration">3–5 MIN</span>
       </div>
 
-      <div class="category">Workplace Communication</div>
+      <div class="category">
+        Workplace Communication
+      </div>
 
       <h3>Think Before You Send</h3>
 
@@ -437,13 +628,17 @@ footer strong {color:white}
       </a>
     </article>
 
+    <!-- ADKAR -->
+
     <article class="card adkar">
       <div class="card-top">
         <div class="symbol" aria-hidden="true">↗</div>
         <span class="duration">5 MIN</span>
       </div>
 
-      <div class="category">Change Management</div>
+      <div class="category">
+        Change Management
+      </div>
 
       <h3>ADKAR</h3>
 
@@ -459,13 +654,17 @@ footer strong {color:white}
       </a>
     </article>
 
+    <!-- RACI -->
+
     <article class="card raci">
       <div class="card-top">
         <div class="symbol" aria-hidden="true">R</div>
         <span class="duration">5 MIN</span>
       </div>
 
-      <div class="category">Collaboration & Ownership</div>
+      <div class="category">
+        Collaboration & Ownership
+      </div>
 
       <h3>RACI — Who Does What?</h3>
 
@@ -481,13 +680,63 @@ footer strong {color:white}
       </a>
     </article>
 
+    <!-- WHY SHOULD YOU HIRE ME -->
+
+    <article class="card featured hire">
+
+      <div>
+        <div class="featured-label">
+          FEATURED · AN UNCONVENTIONAL INTRODUCTION
+        </div>
+
+        <div class="category">
+          Interactive Career Storytelling
+        </div>
+
+        <h3>
+          Why Should You Hire Me?
+        </h3>
+
+        <p>
+          A slightly chaotic, surprisingly thoughtful
+          and refreshingly different introduction
+          to the person behind these learning experiences.
+
+          Explore ten short episodes featuring workplace
+          humour, creative problem-solving, learning agility
+          and the skills I bring to Instructional Design.
+        </p>
+
+        <a class="card-link"
+           href="./Why%20Hire%20Me/">
+          Experience My Story →
+        </a>
+      </div>
+
+      <div class="featured-art">
+        <div class="question">?</div>
+
+        <div class="quote">
+          "Because you're hiring?"
+        </div>
+
+        <div class="reply">
+          An unconventional answer to<br>
+          a very conventional interview question.
+        </div>
+      </div>
+
+    </article>
+
   </div>
 </section>
 
 <section class="about" aria-labelledby="about-title">
 
   <div>
-    <div class="section-label">Behind the Learning</div>
+    <div class="section-label">
+      Behind the Learning
+    </div>
 
     <h2 id="about-title">
       Designed for Learning That Sticks.
@@ -508,6 +757,7 @@ footer strong {color:white}
   </div>
 
   <div class="about-links">
+
     <a href="https://roma-alamchandani.github.io/roma-portfolio/"
        target="_blank"
        rel="noopener noreferrer">
@@ -517,6 +767,7 @@ footer strong {color:white}
     <a href="#modules">
       Browse Microlearnings ↑
     </a>
+
   </div>
 
 </section>
